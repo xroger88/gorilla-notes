@@ -1,10 +1,18 @@
 (ns gorilla-notes.core
   (:require [gorilla-notes.server :as server]
-            [gorilla-notes.routes :as routes]
-            [gorilla-notes.state :as state]))
+            [gorilla-notes.communication :as communication]
+            [gorilla-notes.state :as state]
+            [gorilla-notes.intro :as intro]))
 
-(def start-server! server/start-server!)
+(defn reset-notes! []
+  (state/reset-notes!)
+  (communication/broadcast-content-ids!))
 
 (defn add-note! [extended-hiccup]
   (state/add-note! extended-hiccup)
-  (routes/broadcast-content-ids))
+  (communication/broadcast-content-ids!))
+
+(defn start-server! []
+  (server/start-server!)
+  (add-note! intro/note))
+

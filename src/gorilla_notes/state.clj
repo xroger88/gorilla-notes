@@ -1,27 +1,30 @@
 (ns gorilla-notes.state
   (:require [gorilla-notes.util :refer [uuid]]))
 
-(def *state (atom {}))
+(def *state (atom {:ids []
+                   :id->content {}}))
 
 (defn ->timestamp []
   (pr-str (java.util.Date.)))
 
-(defn update-content! [f & args]
-  (swap! *state
-         (fn [state]
-           (as-> state s
-             (assoc s :timestamp (->timestamp))
-             (apply update s :content f args)))))
-
 (defn add-note! [extended-hiccup]
-  (update-content! conj {:content   extended-hiccup
-                         :timestamp (->timestamp)
-                         :id (uuid)}))
+  (let [id (uuid)]
+    (swap! *state
+     (fn [state]
+       (-> state
+           (assoc-in [:id->content id] extended-hiccup)
+           (update :ids conj id))))))
+
+(defn reset-notes! []
+  (swap! *state
+         assoc
+         :ids []
+         :id->content {}))
 
 (defn content-ids []
-  (->> @*state
-       :content
-       (map :id)))
+  (:ids @*state))
 
 (comment
   (add-note! [:div [:h1 ".."]]))
+
+

@@ -2,4 +2,4 @@
   (:import java.util.UUID))
 
 (defn uuid []
-  (UUID/randomUUID))
+  (.toString (UUID/randomUUID)))

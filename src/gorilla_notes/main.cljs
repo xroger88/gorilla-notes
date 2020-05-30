@@ -3,7 +3,7 @@
             [pinkgorilla.ui.default-renderer]
             [gorilla-notes.view :as view]
             [gorilla-notes.state]
-            [gorilla-notes.websockets]))
+            [gorilla-notes.communication]))
 
 (enable-console-print!)
 

@@ -3,41 +3,51 @@
    [gorilla-notes.state :as state]
    [pinkgorilla.ui.pinkie :refer [tag-inject]]
    [zprint.core :as zprint]
-   [clojure.string :as string])
+   [cljsjs.highlight]
+   [cljsjs.highlight.langs.clojure])
   (:import
    [goog.crypt Md5]))
 
-(defn code->hiccup [code]
-  [:pre {:class "prettyprint lang-clj"}
-   (-> code
-       (zprint/zprint 72 {:parse-string? true})
-       with-out-str)])
+(defn Code [code]
+  [:div {:class "bg-light"}
+   [:pre
+   [:code {:dangerouslySetInnerHTML
+           {:__html (-> code
+                        (zprint/zprint 60 {:parse-string? true})
+                        with-out-str
+                        (->> (js/hljs.highlight "clojure"))
+                        (.-value))}}]]])
 
-(defn Note [extended-hiccup]
+(defn Note [note]
   [:div
-   [:div {:style {:background-color "#f2f0f4"}}
-    (-> extended-hiccup
-        pr-str
-        code->hiccup)]
    [:div
-    (tag-inject extended-hiccup)]])
+    (-> note
+        pr-str
+        Code)]
+   [:div
+    (tag-inject note)]])
+
+(defn NoteCard [i note]
+  [:div {:class "card"}
+   [:div {:class "card-header "}
+    (str "#" (inc i))]
+   [:div {:class "card-body"}
+    [Note note]]])
 
 (defn main []
-  [:div
-   (let [notes (->> @state/*state
-                    :content
-                    (map :content))]
+  [:div {:class "container"}
+   (let [{:keys [ids id->content]} @state/*state
+         notes                     (->> ids
+                                        (map id->content))]
     [:div
      (->> notes
           (map-indexed
-           (fn [i extended-hiccup]
-             [:div
-              [:h2 "Note #" (inc i)]
-              [Note extended-hiccup]]))
-          (into [:div
-                 [:div
-                  [:h1 {:style {:color "#604020"}}
-                   [:b [:i "gn"]]]
-                  [:small
-                   "Currently showing " [:big [:big (count notes)]] " notes."]
-                  [:hr]]]))])])
+           (fn [i note]
+             (when note
+               [NoteCard i note])))
+          reverse
+          (into
+           [:div
+            [:div
+             [:small
+              [:p "Currently showing " [:big [:big (count notes)]] " notes."]]]]))])])
