@@ -1,7 +1,7 @@
 (ns gorilla-notes.view
   (:require
    [gorilla-notes.state :as state]
-   [pinkgorilla.ui.pinkie :refer [tag-inject]]
+   [pinkie.pinkie :refer [tag-inject]]
    [zprint.core :as zprint]
    [cljsjs.highlight]
    [cljsjs.highlight.langs.clojure])
