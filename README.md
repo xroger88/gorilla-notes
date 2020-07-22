@@ -4,7 +4,7 @@ This small library is an experiment with a basic Clojure REPL workflow for creat
 
 We render the notes using [gorilla-ui](https://github.com/pink-gorilla/gorilla-ui). Gorilla-ui is a Clojure library used in [pink-gorilla](https://pink-gorilla.github.io) for rendering visual elements using an superset of the [Hiccup format](https://github.com/weavejester/hiccup). It offers declarative Hiccup-like wrappers for various Javascript visualization libraries.
 
-Eventually, some of the attempts here might be merged in to [Notespace](https://github.com/scicloj/notespace).
+Eventually, some of the attempts here might be merged into [Notespace](https://github.com/scicloj/notespace).
 
 [![Clojars Project](https://img.shields.io/clojars/v/daslu/gorilla-notes.svg)](https://clojars.org/daslu/gorilla-notes)
 
