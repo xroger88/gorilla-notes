@@ -13,7 +13,7 @@ Eventually, some of the attempts here might be merged in to [Notespace](https://
 ![screenshot](images/Screenshot_2020-07-23_01-44-30.png)
 
 ## Usage
-See [using-gorilla-notes](https://github.com/daslu/using-gorilla-notes) .
+See [using-gorilla-notes](https://github.com/daslu/using-gorilla-notes).
 
 ## Building and installing
 
