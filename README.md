@@ -8,6 +8,10 @@ Eventually, some of the attempts here might be merged in to [Notespace](https://
 
 [![Clojars Project](https://img.shields.io/clojars/v/daslu/gorilla-notes.svg)](https://clojars.org/daslu/gorilla-notes)
 
+## Screenshot
+
+![screenshot](images/Screenshot_2020-07-23_01-44-30.png)
+
 ## Usage
 See [using-gorilla-notes](https://github.com/daslu/using-gorilla-notes) .
 
