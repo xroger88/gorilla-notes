@@ -6,8 +6,10 @@ We render the notes using [gorilla-ui](https://github.com/pink-gorilla/gorilla-u
 
 Eventually, some of the attempts here might be merged in to [Notespace](https://github.com/scicloj/notespace).
 
+[![Clojars Project](https://img.shields.io/clojars/v/daslu/gorilla-notes.svg)](https://clojars.org/daslu/gorilla-notes)
+
 ## Usage
-See ...
+See [using-gorilla-notes](https://github.com/daslu/using-gorilla-notes) .
 
 ## Building and installing
 
@@ -17,6 +19,7 @@ See ...
 
 ## Live development and exploration
 
+- `npm install`
 - `shadow-cljs watch app`
 - open a Clojure (JVM) REPL and connect your favourite editor
 - play with both the Clojure and the Clojurescript code
