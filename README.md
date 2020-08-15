@@ -28,6 +28,10 @@ See [using-gorilla-notes](https://github.com/scicloj/using-gorilla-notes).
 - open a Clojure (JVM) REPL and connect your favourite editor
 - play with both the Clojure and the Clojurescript code
 
+## Discussion
+See [this topic thread](https://clojurians.zulipchat.com/#narrow/stream/151924-data-science/topic/gorilla-ui
+) for some explanations and discussion.
+
 ## License
 
 Copyright © 2020 Scicloj
