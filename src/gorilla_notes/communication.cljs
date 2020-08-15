@@ -14,8 +14,9 @@
 (defn ws-url []
   (str "ws://localhost:" config/port "/ws"))
 
-(defn handle-content-ids [content-ids]
-  (let [new-ids (->> content-ids
+(defn handle-content-ids [content-ids-str]
+  (let [content-ids (read-string content-ids-str)
+        new-ids (->> content-ids
                      (filter (complement (set (:ids @state/*state)))))]
     (doseq [id new-ids]
       (go (let [response (<! (http/get (str (base-http-url) "/content/" id)))]
@@ -46,5 +47,10 @@
       (when (-> response :status (= 200))
         (-> response
             :body
-            read-string
             handle-content-ids))))
+
+(go (let [response (<! (http/get (str (base-http-url) "/options")))]
+      (when (-> response :status (= 200))
+        (-> response
+            :body
+            handle-options))))

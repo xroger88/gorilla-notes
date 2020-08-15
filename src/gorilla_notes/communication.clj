@@ -23,7 +23,7 @@
             :body    (cheshire/generate-string [event-type data])})))
 
 (defn broadcast-content-ids! []
-  (broadcast! :gn/content-ids (state/content-ids)))
+  (broadcast! :gn/content-ids (pr-str (state/content-ids))))
 
 (defn broadcast-options! []
   (broadcast! :gn/options (pr-str (state/options))))
@@ -53,6 +53,9 @@
            :id->content
            (get id)
            pr-str))
+  (GET "/options" req (-> @state/*state
+                          :options
+                          pr-str))
   (route/resources "/")
   (route/not-found "Not found"))
 

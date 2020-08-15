@@ -8,13 +8,8 @@
   (state/reset-notes!)
   (communication/broadcast-content-ids!))
 
-(defn add-raw-note! [extended-hiccup]
-  (state/add-note! extended-hiccup)
-  (communication/broadcast-content-ids!))
-
 (defn add-note! [extended-hiccup]
-  (-> extended-hiccup
-      state/add-note!)
+  (state/add-note! extended-hiccup)
   (communication/broadcast-content-ids!))
 
 (defn merge-new-options! [new-options]
@@ -27,8 +22,7 @@
 
 (defn start-server! []
   (server/start-server!)
-  (add-note! intro/note)
-  (communication/broadcast-options!))
+  (add-note! intro/note))
 
 (comment
   (start-server!)
@@ -42,5 +36,4 @@
                        :header? false})
   (toggle-option! :reverse-notes?)
   (toggle-option! :header?)
-  (toggle-option! :notes-in-cards?)
-  )
+  (toggle-option! :notes-in-cards?))
