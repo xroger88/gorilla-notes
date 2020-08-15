@@ -1,7 +1,10 @@
 (ns gorilla-notes.state
   (:require [gorilla-notes.util :refer [uuid]]))
 
-(def *state (atom {:ids []
+(def *state (atom {:options {:reverse-notes? true
+                             :header? true
+                             :notes-in-cards? true}
+                   :ids []
                    :id->content {}}))
 
 (defn ->timestamp []
@@ -21,10 +24,20 @@
          :ids []
          :id->content {}))
 
+(defn merge-new-options! [new-options]
+  (swap! *state
+         update
+         :options
+         #(merge % new-options)))
+
+(defn toggle-option! [k]
+  (swap! *state
+         update-in
+         [:options k]
+         not))
+
 (defn content-ids []
   (:ids @*state))
 
-(comment
-  (add-note! [:div [:h1 ".."]]))
-
-
+(defn options []
+  (:options @*state))

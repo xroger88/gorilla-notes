@@ -25,9 +25,13 @@
                      (-> response :body read-string))))))
     (state/reset-ids! content-ids)))
 
+(defn handle-options [options-str]
+  (state/reset-options! (read-string options-str)))
+
 (defn handle [[event-type data]]
   (case event-type
-    "gn/content-ids" (handle-content-ids data)))
+    "gn/content-ids" (handle-content-ids data)
+    "gn/options" (handle-options data)))
 
 (go-loop []
   (let [{:keys [ws-channel]}    (<! (ws-ch (ws-url)))

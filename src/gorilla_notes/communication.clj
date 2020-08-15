@@ -25,6 +25,9 @@
 (defn broadcast-content-ids! []
   (broadcast! :gn/content-ids (state/content-ids)))
 
+(defn broadcast-options! []
+  (broadcast! :gn/options (pr-str (state/options))))
+
 (comment
   (broadcast! :gn/dummy [1 2 3]))
 

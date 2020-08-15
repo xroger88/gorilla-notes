@@ -1,53 +1,29 @@
 (ns gorilla-notes.view
   (:require
    [gorilla-notes.state :as state]
+   [gorilla-notes.components]
    [pinkie.pinkie :refer [tag-inject]]
-   [zprint.core :as zprint]
    [cljsjs.highlight]
-   [cljsjs.highlight.langs.clojure])
-  (:import
-   [goog.crypt Md5]))
-
-(defn Code [code]
-  [:div {:class "bg-light"}
-   [:pre
-   [:code {:dangerouslySetInnerHTML
-           {:__html (-> code
-                        (zprint/zprint 60 {:parse-string? true})
-                        with-out-str
-                        (->> (js/hljs.highlight "clojure"))
-                        (.-value))}}]]])
-
-(defn Note [note]
-  [:div
-   [:div
-    (-> note
-        pr-str
-        Code)]
-   [:div
-    (tag-inject note)]])
-
-(defn NoteCard [i note]
-  [:div {:class "card"}
-   [:div {:class "card-header "}
-    (str "#" (inc i))]
-   [:div {:class "card-body"}
-    [Note note]]])
+   [cljsjs.highlight.langs.clojure]))
 
 (defn main []
   [:div {:class "container"}
-   (let [{:keys [ids id->content]} @state/*state
-         notes                     (->> ids
-                                        (map id->content))]
-    [:div
+   (let [{:keys [ids id->content options]}      @state/*state
+         {:keys [reverse-notes? header? notes-in-cards?]} options
+         notes                                  (map id->content ids)]
      (->> notes
           (map-indexed
-           (fn [i note]
+           (fn [idx note]
              (when note
-               [NoteCard i note])))
-          reverse
+               (if notes-in-cards?
+                 [:p/note-card {:idx  idx
+                                :note note}]
+                 note))))
+          ((if reverse-notes?
+             reverse
+             identity))
           (into
            [:div
-            [:div
-             [:small
-              [:p "Currently showing " [:big [:big (count notes)]] " notes."]]]]))])])
+            (when header?
+              [:p/header {:notes notes}])])
+          tag-inject))])

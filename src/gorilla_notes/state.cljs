@@ -13,3 +13,7 @@
 
 (defn set-uid! [uid]
   (swap! *state assoc :uid uid))
+
+(defn reset-options! [options]
+  (swap! *state assoc :options options))
+

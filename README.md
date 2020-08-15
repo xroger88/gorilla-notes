@@ -6,6 +6,8 @@ We render the notes using [gorilla-ui](https://github.com/pink-gorilla/gorilla-u
 
 Eventually, some of the attempts here might be merged into [Notespace](https://github.com/scicloj/notespace).
 
+Things are still expected experimental and expected to break across versions.
+
 [![Clojars Project](https://img.shields.io/clojars/v/daslu/gorilla-notes.svg)](https://clojars.org/daslu/gorilla-notes)
 
 ## Screenshot
