@@ -1,4 +1,3 @@
 (ns gorilla-notes.config)
 
-(def port 3000)
-
+(def port 1903)
