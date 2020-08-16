@@ -19,7 +19,7 @@
   NoteCard [{:keys [idx note]}]
   [:div {:class "card"}
    [:div {:class "card-header "}
-    (str "#" (inc idx))]
+    (str "#" idx)]
    [:div {:class "card-body"}
     [Code {:code (pr-str note)}]
     note]])

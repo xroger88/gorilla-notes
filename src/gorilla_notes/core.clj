@@ -13,6 +13,10 @@
   (state/add-note! extended-hiccup)
   (communication/broadcast-content-ids!))
 
+(defn assoc-note! [idx extended-hiccup]
+  (state/assoc-note! idx extended-hiccup)
+  (communication/broadcast-content-ids!))
+
 (defn merge-new-options! [new-options]
   (state/merge-new-options! new-options)
   (communication/broadcast-options!))
@@ -39,8 +43,11 @@
 
   (reset-notes!)
 
-  (add-note! [:div [:p "hi!"]])
-  (add-note! [:div [:p "."]])
+  (add-note! [:div [:p (rand-int 999)]])
+  (add-note! [:div [:p (rand-int 999)]])
+  (add-note! [:div [:p (rand-int 999)]])
+
+  (assoc-note! 1 [:div [:p (rand-int 999)]])
 
   (merge-new-options! {:reverse-notes? false
                        :header? false})

@@ -16,15 +16,24 @@
 
 (defn handle-content-ids [content-ids-str]
   (let [content-ids (read-string content-ids-str)
-        new-ids (->> content-ids
-                     (filter (complement (set (:ids @state/*state)))))]
-    (doseq [id new-ids]
-      (go (let [response (<! (http/get (str (base-http-url) "/content/" id)))]
-            (when (-> response :status (= 200))
-              (swap! state/*state
-                     assoc-in [:id->content id]
-                     (-> response :body read-string))))))
-    (state/reset-ids! content-ids)))
+        new-id? (complement (set (:ids @state/*state)))
+        new-ids-by-idx (->> content-ids
+                            (map-indexed
+                             (fn [idx id]
+                               [idx id]))
+                            (filter (comp new-id? second)))]
+    (go
+      (doseq [[i id] new-ids-by-idx]
+        (let [response (<! (http/get (str (base-http-url) "/content/" id)))]
+          (when (-> response :status (= 200))
+            (swap! state/*state
+                   (fn [state]
+                     (-> state
+                         (assoc-in [:id->content id]
+                                   (-> response :body read-string))
+                         (assoc-in [:ids i]
+                                   id)))))))
+      (state/reset-ids! content-ids))))
 
 (defn handle-options [options-str]
   (state/reset-options! (read-string options-str)))

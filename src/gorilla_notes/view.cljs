@@ -8,12 +8,14 @@
 
 (defn main []
   [:div {:class "container"}
+   #_(pr-str @state/*state)
    (let [{:keys [ids id->content options]}      @state/*state
          {:keys [reverse-notes? header? notes-in-cards?]} options
          notes                                  (map id->content ids)]
      (->> notes
           (map-indexed
            (fn [idx note]
+             (println (pr-str [:idx idx :note note]))
              (when note
                (if notes-in-cards?
                  [:p/note-card {:idx  idx

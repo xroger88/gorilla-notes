@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.3.0-SNAPSHOT] - 2020-08-16
+- support for changing a single note
+- more careful client state updates 
+- minor change in view
+
 ## [0.2.0-SNAPSHOT] - 2020-08-16
 - refactoring for modularity and finer control over rendering options
 

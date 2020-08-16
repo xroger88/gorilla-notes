@@ -18,6 +18,14 @@
            (assoc-in [:id->content id] extended-hiccup)
            (update :ids conj id))))))
 
+(defn assoc-note! [idx extended-hiccup]
+  (let [id (uuid)]
+    (swap! *state
+           (fn [state]
+             (-> state
+                 (assoc-in [:id->content id] extended-hiccup)
+                 (update :ids assoc idx id))))))
+
 (defn reset-notes! []
   (swap! *state
          assoc

@@ -5,7 +5,6 @@
 (def *state
   (reagent/atom
    {:ids []
-    :ids-set #{}
     :id->content {}}))
 
 (defn reset-ids! [ids]
