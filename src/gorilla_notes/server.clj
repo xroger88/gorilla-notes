@@ -12,3 +12,5 @@
                      {:port port})
   (println "Ready at port" port "."))
 
+(defn default-url []
+  (str "http://localhost:" config/port))

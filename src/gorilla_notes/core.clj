@@ -2,7 +2,8 @@
   (:require [gorilla-notes.server :as server]
             [gorilla-notes.communication :as communication]
             [gorilla-notes.state :as state]
-            [gorilla-notes.intro :as intro]))
+            [gorilla-notes.intro :as intro]
+            [clojure.java.browse :as browse]))
 
 (defn reset-notes! []
   (state/reset-notes!)
@@ -24,8 +25,17 @@
   (server/start-server!)
   (add-note! intro/note))
 
+(defn default-url []
+  (server/default-url))
+
+(defn browse-default-url []
+  (future
+   (browse/browse-url (default-url))))
+
 (comment
   (start-server!)
+
+  (browse-default-url)
 
   (reset-notes!)
 
@@ -37,3 +47,4 @@
   (toggle-option! :reverse-notes?)
   (toggle-option! :header?)
   (toggle-option! :notes-in-cards?))
+
