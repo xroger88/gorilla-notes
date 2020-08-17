@@ -18,7 +18,8 @@
                 :asset-path "."
                 :target     :browser
                 :modules    {:main {:init-fn gorilla-notes.main/main!}}
-                :devtools   {:after-load gorilla-notes.main/reload!
-                             :http-root "target"
-                             :http-port 8080}
-                :compiler-options {:optimizations :simple}}}}
+                :dev {:compiler-options {:optimizations :simple}
+                      :devtools   {:after-load gorilla-notes.main/reload!
+                                   :http-root  "target"
+                                   :http-port  8080}}
+                :release {:compiler-options {:optimizations :advanced}}}}}
