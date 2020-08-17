@@ -20,7 +20,7 @@
                (if notes-in-cards?
                  [:p/note-card {:idx  idx
                                 :note note}]
-                 note))))
+                 [:div note]))))
           ((if reverse-notes?
              reverse
              identity))
