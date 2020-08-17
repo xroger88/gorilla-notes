@@ -22,14 +22,13 @@
     (str "#" idx)]
    [:div {:class "card-body"}
     [Code {:code (pr-str note)}]
-    note]])
+    (tag-inject note)]])
+
+(defn ^{:category :gorilla-notes}
+  Note [{:keys [note]}]
+  [:div (tag-inject note)])
 
 (defn ^{:category :gorilla-notes}
   Header [{:keys [notes]}]
   [:small
    [:p "Currently showing " [:big [:big (count notes)]] " notes."]])
-
-(register-component :p/code Code)
-(register-component :p/note-card NoteCard)
-(register-component :p/header Header)
-

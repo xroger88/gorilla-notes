@@ -43,6 +43,13 @@
 
   (reset-notes!)
 
+  (add-note!
+   [:p/sparklinespot {:data (repeatedly 30 (partial rand-int 9))
+                      :limit 100
+                      :svgWidth 100
+                      :svgHeight 20
+                      :margin 1}])
+
   (add-note! [:div [:p (rand-int 999)]])
   (add-note! [:div [:p (rand-int 999)]])
   (add-note! [:div [:p (rand-int 999)]])
