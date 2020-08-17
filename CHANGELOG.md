@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
 ## [0.3.0-SNAPSHOT] - 2020-08-16
+- started supporting some convenience pinkie tags (e.g., `:p/code` for styling code)
 - build setup changes (distinguishing dev from release)
 - more careful client state updates
 - added some some convenience functions regarding the default URL
