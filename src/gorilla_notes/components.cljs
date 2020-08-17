@@ -32,3 +32,5 @@
   Header [{:keys [notes]}]
   [:small
    [:p "Currently showing " [:big [:big (count notes)]] " notes."]])
+
+(register-component :p/code Code)
