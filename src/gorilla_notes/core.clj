@@ -50,6 +50,8 @@
                       :svgHeight 20
                       :margin 1}])
 
+  (add-note! [:div [:p/code {:code "(+ 1 2)"}]])
+
   (add-note! [:div [:p (rand-int 999)]])
   (add-note! [:div [:p (rand-int 999)]])
   (add-note! [:div [:p (rand-int 999)]])

@@ -4,9 +4,10 @@
             [zprint.core :as zprint]))
 
 (defn ^{:category :gorilla-notes}
-  Code [{:keys [code width]
+  Code [{:keys [code width bg-class]
          :or   {width 60}}]
-  [:div {:class "bg-light"}
+  [:div (when bg-class
+          {:class bg-class})
    [:pre
     [:code {:dangerouslySetInnerHTML
             {:__html (-> code
@@ -21,7 +22,8 @@
    [:div {:class "card-header "}
     (str "#" idx)]
    [:div {:class "card-body"}
-    [Code {:code (pr-str note)}]
+    [Code {:code (pr-str note)
+           :bg-class "bg-light"}]
     (tag-inject note)]])
 
 (defn ^{:category :gorilla-notes}
