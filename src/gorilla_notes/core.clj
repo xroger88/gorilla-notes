@@ -5,33 +5,44 @@
             [gorilla-notes.intro :as intro]
             [clojure.java.browse :as browse]))
 
-(defn broadcast! []
-  (communication/broadcast-content-ids!)
-  (communication/broadcast-options!))
+(def broadcast-content-ids! communication/broadcast-content-ids!)
 
-(defn reset-notes! []
+(def broadcast-options! communication/broadcast-options!)
+
+(defn reset-notes! [& {:keys [broadcast?] :or {broadcast? true}}]
   (state/reset-notes!)
-  (communication/broadcast-content-ids!))
+  (when broadcast?
+    (communication/broadcast-content-ids!)))
 
-(defn add-note! [extended-hiccup]
+(defn add-note! [extended-hiccup
+                 & {:keys [broadcast?] :or {broadcast? true}}]
   (state/add-note! extended-hiccup)
-  (communication/broadcast-content-ids!))
+  (when broadcast?
+    (communication/broadcast-content-ids!)))
 
-(defn assoc-note! [idx extended-hiccup]
+(defn assoc-note! [idx extended-hiccup
+                   & {:keys [broadcast?] :or {broadcast? true}}]
   (state/assoc-note! idx extended-hiccup)
-  (communication/broadcast-content-ids!))
+  (when broadcast?
+    (communication/broadcast-content-ids!)))
 
-(defn remove-tail! [n]
-  (state/remove-tail! n)
-  (communication/broadcast-content-ids!))
+(defn drop-tail! [n
+                  & {:keys [broadcast?] :or {broadcast? true}}]
+  (state/drop-tail! n)
+  (when broadcast?
+    (communication/broadcast-content-ids!)))
 
-(defn merge-new-options! [new-options]
+(defn merge-new-options! [new-options
+                          & {:keys [broadcast?] :or {broadcast? true}}]
   (state/merge-new-options! new-options)
-  (communication/broadcast-options!))
+  (when broadcast?
+    (communication/broadcast-options!)))
 
-(defn toggle-option! [k]
+(defn toggle-option! [k
+                      & {:keys [broadcast?] :or {broadcast? true}}]
   (state/toggle-option! k)
-  (communication/broadcast-options!))
+  (when broadcast?
+    (communication/broadcast-options!)))
 
 (defn start-server! []
   (server/start-server!)
@@ -62,16 +73,30 @@
 1 2)}"
                              :zprint {:width 4}}]])
 
-  (do (reset-notes!)
-      (dotimes [i 5]
-        (add-note! [:div [:p (rand-int 999)]]))
-      ;; Take care of possible concurrency mistakes.
+  (do (reset-notes! :broadcast? false)
+      (dotimes [_ 5]
+        (add-note! [:div [:p (rand-int 999)]]
+                   :broadcast? false))
       (Thread/sleep 50)
-      (broadcast!))
+      (broadcast-content-ids!))
 
   (assoc-note! 1 [:div [:p (rand-int 999)]])
 
-  (remove-tail! 2)
+  (drop-tail! 2)
+
+  (do
+    (reset-notes! :broadcast? false)
+    (dotimes [_ 20]
+      (add-note! [:div [:p (rand-int 999)]]
+                 :broadcast? false))
+    (dotimes [_ 5]
+      (drop-tail! 2 :broadcast? false))
+    (broadcast-content-ids!))
+
+  (add-note! [:div [:p (rand-int 999)]]
+             :broadcast? false)
+
+  (broadcast-content-ids!)
 
   (merge-new-options! {:reverse-notes? false
                        :header? false})
