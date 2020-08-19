@@ -4,26 +4,30 @@
             [zprint.core :as zprint]))
 
 (defn ^{:category :gorilla-notes}
-  Code [{:keys [code width bg-class]
-         :or   {width 60}}]
-  [:div (when bg-class
-          {:class bg-class})
-   [:pre
-    [:code {:dangerouslySetInnerHTML
-            {:__html (-> code
-                         (zprint/zprint width {:parse-string? true})
-                         with-out-str
-                         (->> (js/hljs.highlight "clojure"))
-                         (.-value))}}]]])
+  Code [{:keys [code bg-class zprint]}]
+  (let [maybe-zprint (if zprint
+                       #(-> %
+                            (zprint/zprint (:width zprint) {:parse-string? true})
+                            with-out-str)
+                       identity)]
+    [:div (when bg-class
+            {:class bg-class})
+     [:pre
+      [:code {:dangerouslySetInnerHTML
+              {:__html (-> code
+                           maybe-zprint
+                           (->> (js/hljs.highlight "clojure"))
+                           (.-value))}}]]]))
 
 (defn ^{:category :gorilla-notes}
   NoteCard [{:keys [idx note]}]
   [:div {:class "card"}
-   [:div {:class "card-header "}
+   [:div {:class "card-header"}
     (str "#" idx)]
    [:div {:class "card-body"}
     [Code {:code (pr-str note)
-           :bg-class "bg-light"}]
+           :bg-class "bg-light"
+           :zprint {:width 60}}]
     (tag-inject note)]])
 
 (defn ^{:category :gorilla-notes}

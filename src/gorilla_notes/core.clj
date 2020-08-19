@@ -5,6 +5,10 @@
             [gorilla-notes.intro :as intro]
             [clojure.java.browse :as browse]))
 
+(defn broadcast! []
+  (communication/broadcast-content-ids!)
+  (communication/broadcast-options!))
+
 (defn reset-notes! []
   (state/reset-notes!)
   (communication/broadcast-content-ids!))
@@ -50,9 +54,10 @@
                       :svgHeight 20
                       :margin 1}])
 
-  (add-note! [:div [:p/code {:code "(+ 1 2)"}]])
+  (add-note! [:div [:p/code {:code "{:x (+
+1 2)}"
+                             :zprint {:width 4}}]])
 
-  (add-note! [:div [:p (rand-int 999)]])
   (add-note! [:div [:p (rand-int 999)]])
   (add-note! [:div [:p (rand-int 999)]])
 
