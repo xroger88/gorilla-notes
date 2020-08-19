@@ -21,6 +21,10 @@
   (state/assoc-note! idx extended-hiccup)
   (communication/broadcast-content-ids!))
 
+(defn remove-tail! [n]
+  (state/remove-tail! n)
+  (communication/broadcast-content-ids!))
+
 (defn merge-new-options! [new-options]
   (state/merge-new-options! new-options)
   (communication/broadcast-options!))
@@ -58,10 +62,16 @@
 1 2)}"
                              :zprint {:width 4}}]])
 
-  (add-note! [:div [:p (rand-int 999)]])
-  (add-note! [:div [:p (rand-int 999)]])
+  (do (reset-notes!)
+      (dotimes [i 5]
+        (add-note! [:div [:p (rand-int 999)]]))
+      ;; Take care of possible concurrency mistakes.
+      (Thread/sleep 50)
+      (broadcast!))
 
   (assoc-note! 1 [:div [:p (rand-int 999)]])
+
+  (remove-tail! 2)
 
   (merge-new-options! {:reverse-notes? false
                        :header? false})

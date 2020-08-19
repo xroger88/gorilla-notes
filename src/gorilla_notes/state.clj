@@ -26,6 +26,12 @@
                  (assoc-in [:id->content id] extended-hiccup)
                  (update :ids assoc idx id))))))
 
+(defn remove-tail! [n]
+  (let [n-to-remove (min n (-> @*state :ids count))]
+    (swap! *state
+           (fn [state]
+             (update state :ids #(subvec % n-to-remove))))))
+
 (defn reset-notes! []
   (swap! *state
          assoc
