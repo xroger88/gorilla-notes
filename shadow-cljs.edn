@@ -1,11 +1,4 @@
-;; shadow-cljs configuration
-{:lein true
-
- :resource-paths  ["resources"
-                   "node_modules/leaflet/dist"
-                   "node_modules/mathjax/es5"
-                   "node_modules/ag-grid-community"]
-
+{:lein     true
  :dev-http {8080 ["resources/public/"
                   "target"
                   "classpath:resources"
@@ -14,12 +7,8 @@
                   "node_modules/leaflet/dist"
                   "node_modules/mathjax/es5"
                   "node_modules/ag-grid-community"]}
- :builds {:app {:output-dir "resources/public/js/compiled"
-                :asset-path "."
-                :target     :browser
-                :modules    {:main {:init-fn gorilla-notes.main/main!}}
-                :dev {:compiler-options {:optimizations :simple}
-                      :devtools   {:after-load gorilla-notes.main/reload!
-                                   :http-root  "target"
-                                   :http-port  8080}}
-                :release {:compiler-options {:optimizations :advanced}}}}}
+ :builds   {:app {:output-dir "resources/public/js/compiled"
+                  :asset-path "/js/compiled"
+                  :target     :browser
+                  :modules    {:main {:init-fn gorilla-notes.main/main!}}
+                  :devtools   {:after-load gorilla-notes.main/reload!}}}}
