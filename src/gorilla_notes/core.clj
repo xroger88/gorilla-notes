@@ -102,5 +102,12 @@
                        :header? false})
   (toggle-option! :reverse-notes?)
   (toggle-option! :header?)
-  (toggle-option! :notes-in-cards?))
+  (toggle-option! :notes-in-cards?)
 
+  (merge-new-options!
+   {:custom-header [:div
+                    [:big "Hello"]
+                    [:hr]]
+    :custom-footer [:div
+                    [:hr]
+                    [:big "Goodbye"]]}))
