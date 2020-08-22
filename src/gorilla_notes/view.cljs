@@ -1,6 +1,7 @@
 (ns gorilla-notes.view
   (:require
    [gorilla-notes.state :as state]
+   [gorilla-notes.components.notes :as notes]
    [gorilla-notes.components :as components]
    [pinkie.pinkie :refer [tag-inject]]
    [cljsjs.highlight]
@@ -16,9 +17,9 @@
            (fn [idx note]
              (when note
                (if notes-in-cards?
-                 [components/NoteCard {:idx  idx
+                 [notes/NoteCard {:idx  idx
                                 :note note}]
-                 [components/Note {:note note}]))))
+                 [notes/Note {:note note}]))))
           ((if reverse-notes?
              reverse
              identity))
@@ -26,4 +27,4 @@
            [:div
             (tag-inject
              (when header?
-               [components/Header {:notes notes}]))])))])
+               [notes/Header {:notes notes}]))])))])
