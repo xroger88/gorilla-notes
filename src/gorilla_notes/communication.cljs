@@ -43,6 +43,11 @@
     "gn/content-ids" (handle-content-ids data)
     "gn/options" (handle-options data)))
 
+(defn post-input [symbol value]
+  (http/post (str (base-http-url) "/input-update")
+             {:form-params {:symbol (name symbol)
+                            :value  (pr-str value)}}))
+
 (go-loop []
   (let [{:keys [ws-channel]}    (<! (ws-ch (ws-url)))
         {:keys [message error]} (<! ws-channel)]
@@ -63,3 +68,4 @@
         (-> response
             :body
             handle-options))))
+

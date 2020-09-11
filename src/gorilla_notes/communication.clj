@@ -56,6 +56,10 @@
   (GET "/options" req (-> @state/*state
                           :options
                           pr-str))
+  (POST "/input-update" [symbol value]
+        (state/assoc-input! (keyword symbol)
+                            (read-string value))
+        {:status 200})
   (route/resources "/")
   (route/not-found "Not found"))
 

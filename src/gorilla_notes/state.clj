@@ -5,7 +5,9 @@
                              :header? true
                              :notes-in-cards? true}
                    :ids []
-                   :id->content {}}))
+                   :id->content {}
+                   :inputs {}
+                   :input-handlers []}))
 
 (defn ->timestamp []
   (pr-str (java.util.Date.)))
@@ -55,3 +57,14 @@
 
 (defn options []
   (:options @*state))
+
+(defn watch-inputs! [handler]
+  (swap! *state update :input-handlers #(conj % handler)))
+
+(defn assoc-input! [symbol value]
+  (swap! *state assoc-in [:inputs symbol] value)
+  (doseq [handler (:input-handlers @*state)]
+    (handler symbol value)))
+
+(defn inputs []
+  (:inputs @*state))

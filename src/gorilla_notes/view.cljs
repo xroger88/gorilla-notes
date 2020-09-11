@@ -1,6 +1,7 @@
 (ns gorilla-notes.view
   (:require
    [gorilla-notes.state :as state]
+   [gorilla-notes.components] ;; This is necessary for components registraion.
    [gorilla-notes.components.notes :as notes]
    [pinkie.pinkie :refer [tag-inject]]
    [cljsjs.highlight]

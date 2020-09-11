@@ -55,12 +55,38 @@
   (future
    (browse/browse-url (default-url))))
 
+(defn inputs []
+  (state/inputs))
+
+(defn watch-inputs! [handler]
+  (state/watch-inputs! handler))
+
 (comment
   (start-server!)
 
   (browse-default-url)
 
   (reset-notes!)
+
+  (do
+    (add-note!
+     [:p/slider :abcd {:initial-value -3
+                    :min           -9
+                    :max           9}]
+     :broadcast? false)
+    (add-note! [:h1 "..........."])
+    (add-note!
+     [:p/slider :x {:initial-value -1
+                    :min           -9
+                    :max           9}]
+     :broadcast? false)
+    (broadcast-content-ids!))
+
+  (watch-inputs!
+   (fn [symbol value]
+     (println [symbol value])))
+
+  (inputs)
 
   (add-note!
    [:p/sparklinespot {:data (repeatedly 30 (partial rand-int 9))
