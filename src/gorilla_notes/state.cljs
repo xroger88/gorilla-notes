@@ -16,4 +16,10 @@
 (defn reset-options! [options]
   (swap! *state assoc :options options))
 
-
+(defn reset-with-options-and-notes! [options notes]
+  (let [ids (-> notes count range vec)]
+    (reset! *state
+            {:ids ids
+             :id->content (zipmap ids notes)
+             :options options}))
+  (println @*state))

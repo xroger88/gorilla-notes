@@ -48,24 +48,24 @@
              {:form-params {:symbol (name symbol)
                             :value  (pr-str value)}}))
 
-(go-loop []
-  (let [{:keys [ws-channel]}    (<! (ws-ch (ws-url)))
-        {:keys [message error]} (<! ws-channel)]
-    (if error
-      (js/console.log "Uh oh:" error)
-      (do (js/console.log "Recieved:" (pr-str message))
-          (handle message))))
-  (recur))
+(defn start! []
+  (go-loop []
+    (let [{:keys [ws-channel]}    (<! (ws-ch (ws-url)))
+          {:keys [message error]} (<! ws-channel)]
+      (if error
+        (js/console.log "Uh oh:" error)
+        (do (js/console.log "Recieved:" (pr-str message))
+            (handle message))))
+    (recur))
 
-(go (let [response (<! (http/get (str (base-http-url) "/ids")))]
-      (when (-> response :status (= 200))
-        (-> response
-            :body
-            handle-content-ids))))
+  (go (let [response (<! (http/get (str (base-http-url) "/ids")))]
+        (when (-> response :status (= 200))
+          (-> response
+              :body
+              handle-content-ids))))
 
-(go (let [response (<! (http/get (str (base-http-url) "/options")))]
-      (when (-> response :status (= 200))
-        (-> response
-            :body
-            handle-options))))
-
+  (go (let [response (<! (http/get (str (base-http-url) "/options")))]
+        (when (-> response :status (= 200))
+          (-> response
+              :body
+              handle-options)))))
