@@ -3,7 +3,8 @@
             [gorilla-notes.communication :as communication]
             [gorilla-notes.state :as state]
             [gorilla-notes.intro :as intro]
-            [clojure.java.browse :as browse]))
+            [clojure.java.browse :as browse]
+            [gorilla-notes.static-rendering :as static-rendering]))
 
 (def broadcast-content-ids! communication/broadcast-content-ids!)
 
@@ -61,6 +62,9 @@
 (defn watch-inputs! [handler]
   (state/watch-inputs! handler))
 
+(defn render-current-state! [output-path]
+  (static-rendering/render-current-state! output-path))
+
 (comment
   (start-server!)
 
@@ -68,13 +72,22 @@
 
   (reset-notes!)
 
+  (assoc-note! 0 [:div [:p (rand-int 999)]])
+
+  (render-current-state! "/tmp/index.html")
+  (browse/browse-url "/tmp/index.html")
+
   (do
+    (reset-notes!
+     :broadcast? false)
     (add-note!
      [:p/slider :abcd {:initial-value -3
                     :min           -9
                     :max           9}]
      :broadcast? false)
-    (add-note! [:h1 "..........."])
+    (add-note!
+     [:h1 "..........."]
+     :broadcast? false)
     (add-note!
      [:p/slider :x {:initial-value -1
                     :min           -9

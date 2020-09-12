@@ -10,7 +10,6 @@
  :builds   {:app {:output-dir "resources/public/js/compiled"
                   :asset-path "/js/compiled"
                   :target     :browser
-                  :modules    {:main {;; :init-fn gorilla-notes.main/main!
-                                      :entries [gorilla-notes.main]}}
+                  :modules    {:main {:entries [gorilla-notes.main]}}
                   :module-loader true
                   :devtools   {:after-load gorilla-notes.main/reload!}}}}

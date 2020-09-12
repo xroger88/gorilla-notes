@@ -16,15 +16,14 @@
   (mount view/main)
   (print "Hello reload!"))
 
-(defn reset-content! [content-str]
-  (let [{:keys [options notes]} (read-string content-str)]
-    (state/reset-with-options-and-notes! options notes)))
+(defn reset-state! [state-str]
+  (reset! state/*state (read-string state-str)))
 
 (defn main!
-  ([communication? content-str]
+  ([communication? state-str]
    (mount view/main)
    (when communication?
      (communication/start!))
-   (when content-str
-     (reset-content! content-str))
+   (when state-str
+     (reset-state! state-str))
    (println "Ready")))

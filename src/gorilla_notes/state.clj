@@ -1,5 +1,5 @@
 (ns gorilla-notes.state
-  (:require [gorilla-notes.util :refer [uuid]]))
+  (:require [gorilla-notes.util :refer [next-id]]))
 
 (def *state (atom {:options {:reverse-notes? true
                              :header? true
@@ -13,7 +13,7 @@
   (pr-str (java.util.Date.)))
 
 (defn add-note! [extended-hiccup]
-  (let [id (uuid)]
+  (let [id (next-id)]
     (swap! *state
      (fn [state]
        (-> state
@@ -21,7 +21,7 @@
            (update :ids conj id))))))
 
 (defn assoc-note! [idx extended-hiccup]
-  (let [id (uuid)]
+  (let [id (next-id)]
     (swap! *state
            (fn [state]
              (-> state

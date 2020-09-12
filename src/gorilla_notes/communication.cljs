@@ -39,9 +39,10 @@
   (state/reset-options! (read-string options-str)))
 
 (defn handle [[event-type data]]
-  (case event-type
+  (when event-type
+    (case event-type
     "gn/content-ids" (handle-content-ids data)
-    "gn/options" (handle-options data)))
+    "gn/options" (handle-options data))))
 
 (defn post-input [symbol value]
   (http/post (str (base-http-url) "/input-update")
