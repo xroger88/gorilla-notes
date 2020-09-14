@@ -15,7 +15,7 @@
        "<script src=\"https://cdn.jsdelivr.net/gh/scicloj/gorilla-notes@master/dist/0.4.0-SNAPSHOT-1/main.js\"></script>")))
 
 (defn render-current-state! [output-path]
-  (->> @state/*state
+  (->> (select-keys @state/*state [:options :ids :id->content])
        pr-str
        static-html
        (spit output-path)))
