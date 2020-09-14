@@ -7,11 +7,13 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.6.0/styles/solarized-light.min.css" rel="stylesheet" type="text/css">
     </head>
     <body>
+        <p id="loading">Loading ...</p>
         <div id="app"></div>
     </body>
     <script src="js/compiled/main.js"></script>
     <script>
      shadow.loader.load("main");
      gorilla_notes.main.main_BANG_(true, null);
+     document.getElementById("loading").remove();
     </script>
 </html>
