@@ -82,13 +82,12 @@
                  {:make "Ford" :model "Mondeo" :price 32000}
                  {:make "Porsche" :model "Boxter" :price 72000}])
 
-
   (add-note!
    [:div {:class "ag-theme-balham"
           :style {:height "150px"
                   :width  "600px"}}
-    [:p/aggrid {:columnDefs columnDefs
-                :rowData    rowData}]])
+    [:p/dataset {:columnDefs columnDefs
+                 :rowData    rowData}]])
 
   (render-current-state! "/tmp/index.html")
   (browse/browse-url "/tmp/index.html")
