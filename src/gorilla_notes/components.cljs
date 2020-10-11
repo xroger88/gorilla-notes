@@ -8,4 +8,4 @@
 (register-component :p/code code/code-block)
 (register-component :p/slider input/slider)
 (register-component :p/dataset dataset/dataset-view)
-(register-component :p/leaflet leaflet/leaflet-map)
+(register-component :p/leafletmap leaflet/leaflet-map)
