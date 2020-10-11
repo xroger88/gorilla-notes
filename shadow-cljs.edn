@@ -7,9 +7,9 @@
                   "node_modules/leaflet/dist"
                   "node_modules/mathjax/es5"
                   "node_modules/ag-grid-community"]}
- :builds   {:app {:output-dir "resources/public/js/compiled"
-                  :asset-path "/js/compiled"
-                  :target     :browser
-                  :modules    {:main {:entries [gorilla-notes.main]}}
+ :builds   {:app {:output-dir    "resources/public/js/compiled"
+                  :asset-path    "/js/compiled"
+                  :target        :browser
+                  :modules       {:main {:entries [gorilla-notes.main]}}
                   :module-loader true
-                  :devtools   {:after-load gorilla-notes.main/reload!}}}}
+                  :devtools      {:after-load gorilla-notes.main/reload!}}}}

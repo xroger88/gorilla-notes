@@ -27,3 +27,5 @@
    (when state-str
      (reset-state! state-str))
    (println "Ready")))
+
+(main! true nil)
