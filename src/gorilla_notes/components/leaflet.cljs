@@ -24,17 +24,13 @@
    :tile-layer {:url "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}})
 
-;; config cannot be overritten by the user. this is ui renderer configuration
-(def config
-  {:css "https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"})
-
 (defn marker []
-  {:icon (Icon. (clj->js {:iconUrl (res-href "leaflet/dist/images/marker-icon.png")
-                          :iconRetinaUrl (res-href "leaflet/dist/images/marker-icon-2x.png")
+  {:icon (Icon. (clj->js {;; :iconUrl (res-href "leaflet/dist/images/marker-icon.png")
+                          ;; :iconRetinaUrl (res-href "leaflet/dist/images/marker-icon-2x.png")
                           :iconAnchor [5, 55]
                           :popupAnchor [10, -44]
                           :iconSize [25, 55]
-                          :shadowUrl (res-href "leaflet/dist/images/marker-shadow.png")
+                          ;; :shadowUrl (res-href "leaflet/dist/images/marker-shadow.png")
                           :shadowSize [68, 95]
                           :shadowAnchor [20, 92]}))})
 
@@ -107,15 +103,12 @@
     {:type :geojson :data geojson}]]"
 
   ([options features-incl-view]
-   (let [{:keys [css]} config ; config cannot be set by user
-         {:keys [width height zoom center
+   (let [{:keys [width height zoom center
                  tile-layer]} options
          view (first (filter view? features-incl-view))
          features (remove view? features-incl-view)
          view-map (view-map-props view)]
      [:div.z-10
-      [link-css css]
-      ;[:link {:rel "stylesheet" :href css}]
       [:> Map (merge  {:zoom zoom
                        :center center
                        :style {:width width :height height}
