@@ -54,7 +54,7 @@
 
 (defn browse-default-url []
   (future
-   (browse/browse-url (default-url))))
+    (browse/browse-url (default-url))))
 
 (defn inputs []
   (state/inputs))
@@ -87,18 +87,71 @@
           :style {:height "150px"
                   :width  "600px"}}
     [:p/dataset {:columnDefs columnDefs
-                 :rowData    rowData}]])
+                  :rowData    rowData}]])
 
   (render-current-state! "/tmp/index.html")
   (browse/browse-url "/tmp/index.html")
+
+  (add-note!
+   [:p/leaflet
+    {:tile-layer {:url "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
+                  :attribution "&copy ; <a href=\"https://stadiamaps.com/\">Stadia Maps</a>, &copy; <a href=\"https://openmaptiles.org/\">OpenMapTiles</a> &copy; <a href=\"http://openstreetmap.org\">OpenStreetMap</a> contributors"}}
+    [{:type   :view
+      :center [51.49, -0.08]
+      :zoom   12
+      :height 600
+      :width  700}
+     {:type   :rectangle
+      :bounds [[51.49, -0.08]
+               [51.5, -0.06]]}
+     {:type      :circle
+      :center    [51.505, -0.09]
+      :fillColor :blue
+      :radius    200}
+     {:type      :polygon
+      :positions [[51.515, -0.09]
+                  [51.52, -0.1]
+                  [51.52, -0.12]]
+      :color     :purple}
+     {:type      :polygon
+      :positions [[[51.51, -0.12]
+                   [51.51, -0.13]
+                   [51.53, -0.13]]
+                  [[51.51, -0.05]
+                   [51.51, -0.07]
+                   [51.53, -0.07]]]
+      :color     :purple}
+     {:type      :line
+      :positions [[51.505, -0.09]
+                  [51.51, -0.1]
+                  [51.51, -0.12]]
+      :color     :lime}
+     {:type      :line
+      :positions [[[51.5, -0.1]
+                   [51.5, -0.12]
+                   [51.52, -0.12]]
+                  [[51.5, -0.05]
+                   [51.5, -0.06]
+                   [51.52, -0.06]]]
+      :color     :lime}
+     {:type     :marker
+      :position [51.505, -0.09]}
+     {:type     :marker
+      :position [51.51, -0.12]
+      :popup    "wow"}
+     {:type      :circlemarker
+      :center    [51.52, -0.06]
+      :fillColor :blue
+      :radius    200
+      :popup     "square the circle"}]])
 
   (do
     (reset-notes!
      :broadcast? false)
     (add-note!
      [:p/slider :abcd {:initial-value -3
-                    :min           -9
-                    :max           9}]
+                       :min           -9
+                       :max           9}]
      :broadcast? false)
     (add-note!
      [:h1 "..........."]
@@ -117,13 +170,15 @@
   (inputs)
 
   (add-note!
-   [:p/sparklinespot {:data (repeatedly 30 (partial rand-int 9))
-                      :limit 100
-                      :svgWidth 100
+   [:p/sparklinespot {:data      (repeatedly
+                                  30
+                                  (partial rand-int 9))
+                      :limit     100
+                      :svgWidth  100
                       :svgHeight 20
-                      :margin 1}])
+                      :margin    1}])
 
-  (add-note! [:div [:p/code {:code "{:x (+
+  (add-note! [:div [:p/code {:code   "{:x (+
 1 2)}"
                              :zprint {:width 4}}]])
 
@@ -153,7 +208,7 @@
   (broadcast-content-ids!)
 
   (merge-new-options! {:reverse-notes? false
-                       :header? false})
+                       :header?        false})
   (toggle-option! :reverse-notes?)
   (toggle-option! :header?)
   (toggle-option! :notes-in-cards?)

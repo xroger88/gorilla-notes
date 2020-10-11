@@ -2,7 +2,7 @@
   (:require [zprint.core :as zprint]))
 
 (defn ^{:category :gorilla-notes}
-  Code [{:keys [code bg-class zprint]}]
+  code-block [{:keys [code bg-class zprint]}]
   (let [maybe-zprint (if zprint
                        #(-> %
                             (zprint/zprint (:width zprint) {:parse-string? true})

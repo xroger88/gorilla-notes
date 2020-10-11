@@ -2,7 +2,7 @@
   (:require [reagent.core :as r]
             [gorilla-notes.communication :as communication]))
 
-(defn Slider [symbol {:keys [initial-value min max]}]
+(defn slider [symbol {:keys [initial-value min max]}]
   (let [value (r/atom initial-value)
         id    (rand-int 999999)]
     (communication/post-input symbol initial-value)

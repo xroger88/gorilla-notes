@@ -8,9 +8,10 @@
    [:div {:class "card-header"}
     (str "#" idx)]
    [:div {:class "card-body"}
-    [code/Code {:code     (pr-str note)
-           :bg-class "bg-light"
-           :zprint   {:width 60}}]
+    [code/code-block
+     {:code     (pr-str note)
+      :bg-class "bg-light"
+      :zprint   {:width 60}}]
     (tag-inject note)]])
 
 (defn ^{:category :gorilla-notes}

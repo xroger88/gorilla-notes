@@ -5,7 +5,7 @@
 ;; Inspired by gorilla-ui aggrid component
 
 (defn ^{:category :gorilla-notes}
-  Dataset
+  dataset-view
   "displays data in a table, uses ag-grid
    [aggrid {:columnDefs [{:headerName \"Make\" :field \"make\"}
                          {:headerName \"Model\" :field \"model\"}
