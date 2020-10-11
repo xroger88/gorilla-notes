@@ -24,16 +24,6 @@
    :tile-layer {:url "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 :attribution "&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"}})
 
-(defn marker []
-  {:icon (Icon. (clj->js {;; :iconUrl (res-href "leaflet/dist/images/marker-icon.png")
-                          ;; :iconRetinaUrl (res-href "leaflet/dist/images/marker-icon-2x.png")
-                          :iconAnchor [5, 55]
-                          :popupAnchor [10, -44]
-                          :iconSize [25, 55]
-                          ;; :shadowUrl (res-href "leaflet/dist/images/marker-shadow.png")
-                          :shadowSize [68, 95]
-                          :shadowAnchor [20, 92]}))})
-
 (defn- log [s] (.log js/console s))
 
 (defn- feature [data-with-type]
@@ -44,7 +34,7 @@
       :circle ^:r [:> Circle data] ;  <Circle center={center} fillColor="blue" radius={200} />
       :line ^:r [:> Polyline data]   ; <Polyline color="lime" positions={polyline} />
       :polygon ^:r [:> Polygon data]  ; <Polygon color="purple" positions={polygon} />
-      :marker ^:r [:> Marker (merge (marker) data)        ;  <Marker position= {position} >  <Marker position= {position} icon= {pointerIcon} >
+      :marker ^:r [:> Marker data        ;  <Marker position= {position} >  <Marker position= {position} icon= {pointerIcon} >
                    (when (not (nil? (:popup data)))
                      ^:r [:> Popup (:popup data)])]  ; <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
       :circlemarker ^:r [:> CircleMarker data   ;  <CircleMarker center= {[51.51, -0.12]} color= "red" radius= {20} >
