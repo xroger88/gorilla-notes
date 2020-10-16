@@ -1,0 +1,1 @@
+leaflet-providers.json was created at 2020, Oct. 16th by copying the `L.TileLayer.Provider.providers` object at the [Leaflet Providers Preview website](https://leaflet-extras.github.io/leaflet-providers/preview/).

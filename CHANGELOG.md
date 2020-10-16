@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. This change
 - took care of ag-grid css
 - added leaflet component (a bit more flexible than the Gorilla-UI one)
 - some internal renaming
+- added a catalog of leaflet tile providers
 
 ## [0.4.0] - 2020-09-21
 - changes in aesthetics, configurability

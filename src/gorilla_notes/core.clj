@@ -92,11 +92,11 @@
   (render-current-state! "/tmp/index.html")
   (browse/browse-url "/tmp/index.html")
 
+  (require '[gorilla-notes.components.leaflet.providers :as leaflet-providers])
+
   (add-note!
    [:p/leafletmap
-    {:tile-layer {:url         "https://stamen-tiles-{s}.a.ssl.fastly.net/toner-lite/{z}/{x}/{y}{r}.{ext}"
-                  :attribution "Map tiles by <a href= \"http://stamen.com\" >Stamen Design</a>, <a href= \"http://creativecommons.org/licenses/by/3.0\" >CC BY 3.0</a> &mdash ; Map data &copy; <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a> contributors"
-                  :ext         "png"}}
+    {:tile-layer leaflet-providers/Stamen-TonerLite}
     [{:type   :view
       :center [51.49, -0.08]
       :zoom   12
@@ -221,3 +221,7 @@
     :custom-footer [:div
                     [:hr]
                     [:big "Goodbye"]]}))
+
+
+
+
