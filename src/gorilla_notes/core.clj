@@ -66,6 +66,7 @@
   (static-rendering/render-current-state! output-path))
 
 (comment
+
   (start-server!)
 
   (browse-default-url)
@@ -179,9 +180,24 @@
                       :svgHeight 20
                       :margin    1}])
 
-  (add-note! [:div [:p/code {:code   "{:x (+
-1 2)}"
+  (add-note! [:div [:p/code "{:x (+ 1 2)}"]])
+
+  (add-note! [:div [:p/code "{:x
+ (+ 1 2)}"]])
+
+  (add-note! [:div [:p/code "{:x (+ 1 2)}" {}]])
+
+  (add-note! [:div [:p/code {:code   "{:x (+ 1 2)}"
                              :zprint {:width 4}}]])
+
+  (add-note! [:div [:p/code {:code   "def f(x):
+  return x+1;"
+                             :language :python}]])
+
+  (add-note! [:div [:p/code
+                    "def f(x):
+  return x+1;"
+                    {:language :python}]])
 
   (do (reset-notes! :broadcast? false)
       (dotimes [_ 5]
@@ -221,7 +237,5 @@
     :custom-footer [:div
                     [:hr]
                     [:big "Goodbye"]]}))
-
-
 
 
