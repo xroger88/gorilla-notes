@@ -74,6 +74,10 @@
   (reset-notes!)
 
   (assoc-note! 0 [:div [:p (rand-int 999)]])
+  
+  (add-note! (into [:div]
+                   (repeatedly 9 (fn []
+                                   [:p (rand-int 999)]))))
 
   (def columnDefs [{:headerName "Make" :field "make"}
                    {:headerName "Model" :field "model"}
@@ -229,6 +233,9 @@
   (toggle-option! :reverse-notes?)
   (toggle-option! :header?)
   (toggle-option! :notes-in-cards?)
+  (toggle-option! :initially-collapse?)
+
+  (communication/broadcast-options!)
 
   (merge-new-options!
    {:custom-header [:div

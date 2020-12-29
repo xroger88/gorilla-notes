@@ -1,9 +1,17 @@
 (ns gorilla-notes.components.notes
   (:require [pinkie.pinkie :refer [tag-inject]]
-            [gorilla-notes.components.code :as code]))
+            [gorilla-notes.components.code :as code]
+            [gorilla-notes.components.collapsible :as collapsible]))
 
 (defn ^{:category :gorilla-notes}
-  NoteCard [{:keys [idx note]}]
+  Note [{:keys [id note]}]
+  ^{:key (str "panel#" id)}
+  [collapsible/panel
+   [:div (tag-inject note)]])
+
+(defn ^{:category :gorilla-notes}
+  NoteCard [{:keys [id idx note]
+             :as data}]
   [:div {:class "card"}
    [:div {:class "card-header"}
     (str "#" idx)]
@@ -12,11 +20,7 @@
      {:code     (pr-str note)
       :bg-class "bg-light"
       :zprint   {:width 60}}]
-    (tag-inject note)]])
-
-(defn ^{:category :gorilla-notes}
-  Note [{:keys [note]}]
-  [:div (tag-inject note)])
+    [Note data]]])
 
 (defn ^{:category :gorilla-notes}
   Header [{:keys [notes]}]

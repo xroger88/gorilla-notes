@@ -5,7 +5,8 @@
 (def *state
   (reagent/atom
    {:ids []
-    :id->content {}}))
+    :id->content {}
+    :options {}}))
 
 (defn reset-ids! [ids]
   (swap! *state assoc :ids ids))
