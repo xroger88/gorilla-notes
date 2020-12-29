@@ -8,7 +8,7 @@
    [cljsjs.highlight.langs.clojure]))
 
 (defn main []
-  [:div #_{:class "container"}
+  [:div {:class "container"}
    (let [{:keys [ids id->content options]}     @state/*state
          {:keys [reverse-notes? header? notes-in-cards?
                  custom-header custom-footer]} options
