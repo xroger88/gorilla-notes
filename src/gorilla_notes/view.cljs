@@ -8,7 +8,7 @@
    [cljsjs.highlight.langs.clojure]))
 
 (defn main []
-  [:div {:class "container"}
+  [:div #_{:class "container"}
    (let [{:keys [ids id->content options]}     @state/*state
          {:keys [reverse-notes? header? notes-in-cards?
                  custom-header custom-footer]} options
@@ -25,13 +25,14 @@
                            (when note
                              (let [panel-id (str "panel#" id)]
                                ^{:key panel-id}
-                               [:div {:ref #(when %
+                               [:p
+                                [:div {:ref #(when %
                                               (.scrollIntoView %))}
                                 (if notes-in-cards?
                                   [notes/NoteCard {:id id
                                                    :idx  idx
                                                    :note note}]
-                                  [notes/Note {:note note}])]))))
+                                  [notes/Note {:note note}])]]))))
                         ((if reverse-notes?
                            reverse
                            identity)))
