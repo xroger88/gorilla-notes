@@ -243,6 +243,8 @@
                     [:hr]]
     :custom-footer [:div
                     [:hr]
-                    [:big "Goodbye"]]}))
+                    [:big "Goodbye"]]})
+
+  (render-current-state! "/tmp/a.html"))
 
 
