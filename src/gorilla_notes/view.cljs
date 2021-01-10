@@ -25,7 +25,7 @@
                            (when note
                              (let [panel-id (str "panel#" id)]
                                ^{:key panel-id}
-                               [:p
+                               [:div
                                 [:div {:ref #(when %
                                               (.scrollIntoView %))}
                                 (if notes-in-cards?
