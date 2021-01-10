@@ -6,8 +6,9 @@
 (defn ^{:category :gorilla-notes}
   Note [{:keys [id note]}]
   ^{:key (str "panel#" id)}
-  [collapsible/panel
-   [:div (tag-inject note)]])
+  #_[collapsible/panel
+     [:div (tag-inject note)]]
+  [:div (tag-inject note)])
 
 (defn ^{:category :gorilla-notes}
   NoteCard [{:keys [id idx note]
