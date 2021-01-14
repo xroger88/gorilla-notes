@@ -26,14 +26,26 @@
     (swap! *state
            (fn [state]
              (-> state
-                 (assoc-in [:id->content id] extended-hiccup)
+                 (update :id->content
+                         (fn [id->content]
+                           (-> id->content
+                               (dissoc (-> state (get-in [:ids idx])))
+                               (assoc id extended-hiccup))))
                  (update :ids assoc idx id))))))
 
 (defn drop-tail! [n]
   (let [n-remaining (-> @*state :ids count (- n) (max 0))]
+    (println n-remaining)
     (swap! *state
            (fn [state]
-             (update state :ids #(subvec % 0 n-remaining))))))
+             (-> state
+                 (update :id->content
+                         (fn [id->content]
+                           (dissoc id->content
+                                   (-> state
+                                       :ids
+                                       (subvec n-remaining)))))
+                 (update :ids #(subvec % 0 n-remaining)))))))
 
 (defn reset-notes! []
   (swap! *state

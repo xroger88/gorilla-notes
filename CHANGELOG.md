@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file. This change
 - some internal renaming
 - added a catalog of leaflet tile providers
 - made code blocks components flexible in syntax and supporting different laguages
+- server state cleanup for efficiency
 
 ## [0.4.0] - 2020-09-21
 - changes in aesthetics, configurability
