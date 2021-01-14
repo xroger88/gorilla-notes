@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
-## [0.5.0-SNAPSHOT]
+## [0.5.0] - 2020-01-14
 - updated core.async dep version
 - took care of ag-grid css
 - added leaflet component (a bit more flexible than the Gorilla-UI one)
