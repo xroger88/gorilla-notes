@@ -26,14 +26,9 @@
       (doseq [[i id] new-ids-by-idx]
         (let [response (<! (http/get (str (base-http-url) "/content/" id)))]
           (when (-> response :status (= 200))
-            (swap! state/*state
-                   (fn [state]
-                     (-> state
-                         (assoc-in [:id->content id]
-                                   (-> response :body read-string))
-                         (assoc-in [:ids i]
-                                   id)))))))
-      (state/reset-ids! content-ids))))
+            (state/update-content! i id (-> response :body read-string)))))
+      (state/reset-ids! content-ids)
+      (state/cleanup-content!))))
 
 (defn handle-options [options-str]
   (state/reset-options! (read-string options-str)))
