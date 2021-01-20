@@ -74,7 +74,7 @@
   (reset-notes!)
 
   (assoc-note! 0 [:div [:p (rand-int 999)]])
-  
+
   (add-note! (into [:div]
                    (repeatedly 9 (fn []
                                    [:p (rand-int 999)]))))
@@ -234,6 +234,7 @@
   (toggle-option! :header?)
   (toggle-option! :notes-in-cards?)
   (toggle-option! :initially-collapse?)
+  (toggle-option! :auto-scroll?)
 
   (communication/broadcast-options!)
 

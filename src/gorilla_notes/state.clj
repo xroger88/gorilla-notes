@@ -4,7 +4,8 @@
 (def *state (atom {:options {:reverse-notes? true
                              :header? true
                              :notes-in-cards? true
-                             :initially-collapse? false}
+                             :initially-collapse? false
+                             :auto-scroll? true}
                    :ids []
                    :id->content {}
                    :inputs {}

@@ -1,5 +1,5 @@
-(defproject scicloj/gorilla-notes "0.5.0"
-  :description "basic example using gorilla-ui"
+(defproject scicloj/gorilla-notes "0.5.1"
+  :description "a client-server websocket platform for sending gorilla-ui visualizations to the browser from the REPL"
   :url "http://example.com/FIXME"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"
             :url "https://www.eclipse.org/legal/epl-2.0/"}

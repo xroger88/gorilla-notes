@@ -11,7 +11,7 @@
   [:div #_{:class "container"}
    (let [{:keys [ids id->content options]}     @state/*state
          {:keys [reverse-notes? header? notes-in-cards?
-                 custom-header custom-footer]} options
+                 custom-header custom-footer auto-scroll?]} options
          notes                                 (map (juxt identity
                                                           id->content)
                                                     ids)]
@@ -26,8 +26,8 @@
                              (let [panel-id (str "panel#" id)]
                                ^{:key panel-id}
                                [:div
-                                [:div {:ref #(when %
-                                              (.scrollIntoView %))}
+                                [:div {:ref #(when (and auto-scroll? %)
+                                               (.scrollIntoView %))}
                                 (if notes-in-cards?
                                   [notes/NoteCard {:id id
                                                    :idx  idx

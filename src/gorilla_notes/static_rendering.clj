@@ -12,10 +12,12 @@
        (format "gorilla_notes.main.main_BANG_(false, %s)", (pr-str state-str)))
       (string/replace
        "<script src=\"js/compiled/main.js\"></script>"
-       "<script src=\"https://cdn.jsdelivr.net/gh/scicloj/gorilla-notes@master/dist/0.5.0/main.js\"></script>")))
+       "<script src=\"https://cdn.jsdelivr.net/gh/scicloj/gorilla-notes@master/dist/0.5.1/main.js\"></script>")))
 
 (defn render-current-state! [output-path]
-  (->> (select-keys @state/*state [:options :ids :id->content])
-       pr-str
-       static-html
-       (spit output-path)))
+  (-> @state/*state
+      (select-keys [:options :ids :id->content])
+      (assoc-in [:options :auto-scroll?] false)
+      pr-str
+      static-html
+      (->> (spit output-path))))
