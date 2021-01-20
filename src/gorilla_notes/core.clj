@@ -45,9 +45,10 @@
   (when broadcast?
     (communication/broadcast-options!)))
 
-(defn start-server! []
-  (server/start-server!)
-  (add-note! intro/note))
+(defn start-server! [& options]
+  (let [stop-server (apply server/start-server! options)]
+    (add-note! intro/note)
+    stop-server))
 
 (defn default-url []
   (server/default-url))

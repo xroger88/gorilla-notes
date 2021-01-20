@@ -8,9 +8,10 @@
 (defn start-server! [& {:keys [port]
                         :or   {port config/port}}]
   (println "Server starting...")
-  (server/run-server #'communication/handler
-                     {:port port})
-  (println "Ready at port" port "."))
+  (let [stop-server (server/run-server #'communication/handler
+                                       {:port port})]
+    (println "Ready at port" port ".")
+    stop-server))
 
 (defn default-url []
   (str "http://localhost:" config/port))
