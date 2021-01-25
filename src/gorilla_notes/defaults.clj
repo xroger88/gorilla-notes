@@ -5,5 +5,5 @@
    :header?             true
    :notes-in-cards?     true
    :initially-collapse? false
-   :auto-scroll?        true
+   :auto-scroll?        false
    :port                1903}) 
