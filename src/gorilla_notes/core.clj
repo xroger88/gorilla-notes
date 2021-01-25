@@ -87,6 +87,8 @@
                    (repeatedly 9 (fn []
                                    [:p (rand-int 999)]))))
 
+  (add-note! [:p/html "<h1>....</h1>"])
+
   (def columnDefs [{:headerName "Make" :field "make"}
                    {:headerName "Model" :field "model"}
                    {:headerName "Price" :field "price"}])
