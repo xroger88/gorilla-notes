@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. This change
 ## [0.5.3] - 2020-01-25
 - fixed the configurable port support (now the port is communicated to the client as required)
 - added support for raw html hiccup tags
+- made autoscroll off by default
 
 ## [0.5.2] - 2020-01-21
 - stoppable server, configurable port
