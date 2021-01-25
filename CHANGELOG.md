@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.5.3] - 2020-01-25
+- fixed the configurable port support (now the port is communicated to the client as required)
+
 ## [0.5.2] - 2020-01-21
 - stoppable server, configurable port
 

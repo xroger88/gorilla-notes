@@ -45,17 +45,20 @@
   (when broadcast?
     (communication/broadcast-options!)))
 
-(defn start-server! [& options]
-  (let [stop-server (apply server/start-server! options)]
-    (add-note! intro/note)
-    stop-server))
+(defn start-server!
+  ([]
+   (start-server! nil))
+  ([options]
+   (let [stop-server (server/start-server! options)]
+     (add-note! intro/note)
+     stop-server)))
 
-(defn default-url []
-  (server/default-url))
+(defn base-http-url []
+  (server/base-http-url))
 
-(defn browse-default-url []
+(defn browse-http-url []
   (future
-    (browse/browse-url (default-url))))
+    (browse/browse-url (base-http-url))))
 
 (defn inputs []
   (state/inputs))
@@ -68,9 +71,13 @@
 
 (comment
 
-  (start-server!)
+  (def stop-server (start-server!))
+  (stop-server)
 
-  (browse-default-url)
+  (def stop-server (start-server! {:port 1904}))
+  (stop-server)
+
+  (browse-http-url)
 
   (reset-notes!)
 

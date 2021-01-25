@@ -35,3 +35,6 @@
                                    (filter (complement (set (:ids state)))))]
              (-> state
                  (update :id->content #(apply dissoc % obsolete-ids)))))))
+
+(defn port []
+  (-> @*state :options :port))

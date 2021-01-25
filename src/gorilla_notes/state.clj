@@ -1,11 +1,8 @@
 (ns gorilla-notes.state
-  (:require [gorilla-notes.util :refer [next-id]]))
+  (:require [gorilla-notes.util :refer [next-id]]
+            [gorilla-notes.defaults :as defaults]))
 
-(def *state (atom {:options {:reverse-notes? true
-                             :header? true
-                             :notes-in-cards? true
-                             :initially-collapse? false
-                             :auto-scroll? true}
+(def *state (atom {:options defaults/options
                    :ids []
                    :id->content {}
                    :inputs {}
@@ -82,3 +79,6 @@
 
 (defn inputs []
   (:inputs @*state))
+
+(defn port []
+  (-> @*state :options :port))
