@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file. This change
 - fixed the configurable port support (now the port is communicated to the client as required)
 - added support for raw html hiccup tags
 - made autoscroll off by default
+- switched to the Statically CDN service
 
 ## [0.5.2] - 2020-01-21
 - stoppable server, configurable port
