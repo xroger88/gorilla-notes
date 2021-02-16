@@ -83,6 +83,9 @@
 
   (assoc-note! 0 [:div [:p (rand-int 999)]])
 
+  (add-note!
+   [:p/math "(ax ^2 + bx + c = 0 )"])
+
   (add-note! (into [:div]
                    (repeatedly 9 (fn []
                                    [:p (rand-int 999)]))))

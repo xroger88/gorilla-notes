@@ -4,6 +4,7 @@
             [gorilla-notes.components.input :as input]
             [gorilla-notes.components.dataset :as dataset]
             [gorilla-notes.components.leaflet :as leaflet]
+            [gorilla-notes.components.math :as math]
             [pinkie.pinkie :refer-macros [register-component]]))
 
 (register-component :p/code code/code-block)
@@ -11,3 +12,4 @@
 (register-component :p/slider input/slider)
 (register-component :p/dataset dataset/dataset-view)
 (register-component :p/leafletmap leaflet/leaflet-map)
+(register-component :p/math math/math)
