@@ -6,7 +6,7 @@
 
 (defn start-server! [options]
   (when options
-    (swap! state/*state assoc :options options))
+    (swap! state/*state update :options #(merge % options)))
   (let [port (state/port)]
     (println "Server starting...")
     (let [stop-server (server/run-server #'communication/handler
