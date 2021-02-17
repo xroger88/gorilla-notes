@@ -1,9 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
-## [0.5.4] - 2020-02-16
+## [0.5.5] - 2020-02-17
 - changed default config
 - bugfix in options update on server start
+- using KaTeX for math rendering
 
 ## [0.5.3] - 2020-01-25
 - fixed the configurable port support (now the port is communicated to the client as required)
