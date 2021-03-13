@@ -1,6 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.5.6] - 2020-03-13
+- added sci component
+- support for including external files
+- css changes (brought the margins back)
+
 ## [0.5.5] - 2020-02-17
 - changed default config
 - bugfix in options update on server start
