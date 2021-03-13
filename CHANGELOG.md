@@ -1,7 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
-## [0.5.7] - 2020-03-13
+# [0.5.8] - 2020-03-13
+- rebuild after npm cleanup and some version updates
+
+# [0.5.7] - 2020-03-13
 - rebuild after npm cleanup and vega version update
 
 ## [0.5.6] - 2020-03-13
