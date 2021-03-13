@@ -60,7 +60,10 @@
         (state/assoc-input! (keyword symbol)
                             (read-string value))
         {:status 200})
-  (route/resources "/")
+  (GET "/gn-files/:local-path" [local-path]
+       (println [:local-path local-path])
+       (slurp local-path))
+  (route/files "/")
   (route/not-found "Not found"))
 
 (def handler
