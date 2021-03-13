@@ -84,6 +84,16 @@
   (assoc-note! 0 [:div [:p (rand-int 999)]])
 
   (add-note!
+   [:p/sci '[:div [:h1 (+ 1 2)]]])
+
+  (do
+    (spit "resources/public/tmp.txt" "hi!")
+    (add-note!
+     [:div
+      [:a {:href "tmp.txt"}
+       "hi!"]]))
+
+  (add-note!
    [:p/math "(ax ^2 + bx + c = 0 )"])
 
   (add-note! (into [:div]
