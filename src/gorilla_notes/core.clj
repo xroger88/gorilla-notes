@@ -83,6 +83,24 @@
 
   (assoc-note! 0 [:div [:p (rand-int 999)]])
 
+  (assoc-note!
+   0 [:p/quil
+      '{:draw         (fn [{:keys [circles]}]
+                        (q/background 255)
+                        (doseq [{[x y] :pos [r g b] :color} circles]
+                          (q/fill r g b)
+                          (q/ellipse x y 10 10)))
+        :update-state (fn [{:keys [width height] :as state}]
+                        (update state :circles conj {:pos   [(+ 20 (rand-int (- width 40)))
+                                                             (+ 20 (rand-int (- height 40)))]
+                                                     :color (repeatedly 3 #(rand-int 250))}))
+        :init         (fn [width height]
+                        (fn []
+                          {:width   width
+                           :height  height
+                           :circles []}))}
+      #_{:show-spec? true}])
+
   (add-note!
    [:p/sci '[:div [:h1 (+ 1 2)]]])
 

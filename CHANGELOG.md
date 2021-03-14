@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.5.10] - 2020-03-15
+- experimental quil support
+
 ## [0.5.9] - 2020-03-14
 - changed markdown rendering to react-markdown, for math support
 
