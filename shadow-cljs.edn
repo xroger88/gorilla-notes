@@ -12,4 +12,5 @@
                   :target        :browser
                   :modules       {:main {:entries [gorilla-notes.main]}}
                   :module-loader true
-                  :devtools      {:after-load gorilla-notes.main/reload!}}}}
+                  :devtools      {:after-load gorilla-notes.main/reload!}
+                  :compiler-options {:output-feature-set :es8}}}}

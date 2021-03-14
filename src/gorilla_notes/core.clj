@@ -86,6 +86,9 @@
   (add-note!
    [:p/sci '[:div [:h1 (+ 1 2)]]])
 
+  (add-note!
+   [:p/markdown "# A hi! $a^2$"])
+
   (do
     (spit "resources/public/tmp.txt" "hi!")
     (add-note!

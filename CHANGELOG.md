@@ -1,6 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.5.9] - 2020-03-14
+- changed markdown rendering to react-markdown, for math support
+
 # [0.5.8] - 2020-03-13
 - rebuild after npm cleanup and some version updates
 

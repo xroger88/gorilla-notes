@@ -6,6 +6,7 @@
             [gorilla-notes.components.leaflet :as leaflet]
             [gorilla-notes.components.math :as math]
             [gorilla-notes.components.sci :as sci]
+            [gorilla-notes.components.markdown :as markdown]
             [pinkie.pinkie :refer-macros [register-component]]))
 
 (register-component :p/code code/code-block)
@@ -15,3 +16,4 @@
 (register-component :p/leafletmap leaflet/leaflet-map)
 (register-component :p/math math/math)
 (register-component :p/sci sci/sci)
+(register-component :p/markdown markdown/markdown)
