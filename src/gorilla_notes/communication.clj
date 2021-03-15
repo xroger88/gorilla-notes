@@ -9,7 +9,7 @@
             [org.httpkit.server :refer [send! on-close with-channel]]
             #_[chord.http-kit :refer [wrap-websocket-handler]]
             [cheshire.core :as cheshire]
-            [clojure.core.async :as a :refer [<! go timeout]]
+            [clojure.core.async :as async :refer [<! go go-loop timeout chan]]
             [gorilla-notes.state :as state]))
 
 (def channel-hub
@@ -31,7 +31,11 @@
 (comment
   (broadcast! :gn/dummy [1 2 3]))
 
+(defonce last-ws-event-time
+  (atom (System/currentTimeMillis)))
+
 (defn ws-handler [req]
+  (reset! last-ws-event-time (System/currentTimeMillis))
   (with-channel req ws-channel
     (swap! channel-hub assoc ws-channel req)
     (on-close ws-channel
@@ -73,3 +77,15 @@
       (cors/wrap-cors :access-control-allow-origin [#".*"]
                       :access-control-allow-methods [:get :put :post :delete]
                       :access-control-allow-credentials ["true"])))
+
+(defn refresh []
+  (when (-> (System/currentTimeMillis)
+            (- @last-ws-event-time)
+            (> 1000))
+    (broadcast-content-ids!)))
+
+(defonce periodically-refresh
+  (async/go-loop []
+    (async/<! (async/timeout 1000))
+    (refresh)
+    (recur)))
