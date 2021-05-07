@@ -19,13 +19,20 @@
 (defn reset-state! [state-str]
   (reset! state/*state (read-string state-str)))
 
-(defn main!
-  ([communication? state-str]
-   (mount view/main)
-   (when communication?
-     (communication/start!))
-   (when state-str
-     (reset-state! state-str))
-   (println "Ready")))
+(defn main! []
+  (mount view/main)
+  (if-let [state-str (some-> js/document
+                             (.getElementById "state")
+                             .-text
+                             read-string)]
+    ;; State is already specified.
+    (do (println "Using predefined state.")
+        (reset-state! state-str))
+    ;; No state is specified. Start communication for an interactive session.
+    (do (println "No predefined state. Starting communication.")
+        (communication/start!)))
+  (some-> js/document
+          (.getElementById "loading")
+          (.remove))
+  (println "Ready"))
 
-;; (main! true nil)

@@ -10,7 +10,8 @@
  :builds   {:app {:output-dir    "resources/public/js/compiled"
                   :asset-path    "/js/compiled"
                   :target        :browser
-                  :modules       {:main {:entries [gorilla-notes.main]}}
+                  :modules       {:main {:entries [gorilla-notes.main]
+                                         :init-fn gorilla-notes.main/main!}}
                   :module-loader true
                   :devtools      {:after-load gorilla-notes.main/reload!}
                   :compiler-options {:output-feature-set :es8}}}}
