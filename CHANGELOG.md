@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. This change
 ## [0.5.12-SNAPSHOT] - 2020-05-08
 - updated deps (shadow-cljs, gorilla-ui)
 - a more standard setup of index.html and static rendering
+- fixed communication through websockets: debouncing
 
 ## [0.5.11] - 2020-03-16
 - periodically boardcasting for eventual sync

@@ -29,7 +29,7 @@
 (defn handle-options [options-str]
   (state/reset-options! (read-string options-str)))
 
-(defn handle [[event-type data]]
+(defn handle [[_ event-type data]]
   (when event-type
     (case event-type
     "gn/content-ids" (handle-content-ids data)
@@ -40,22 +40,79 @@
              {:form-params {:symbol (name symbol)
                             :value  (pr-str value)}}))
 
+(defn pass-valid-messages [in out]
+  (async/go-loop []
+    (let [{:keys [message error]} (<! in)]
+      (if error
+        (println "Error:" error)
+        (async/>! out message)))
+    (recur)))
+
+;; https://stackoverflow.com/a/33621605
+(defn batch-messages [in out max-time max-count]
+  (let [lim-1 (dec max-count)]
+    (async/go-loop [buf []
+                    t (async/timeout max-time)]
+      (let [[v p] (async/alts! [in t])]
+        (cond
+
+          (= p t)
+          (do
+            (async/>! out buf)
+            (recur [] (async/timeout max-time)))
+
+          (nil? v)
+          (if (seq buf)
+            (async/>! out buf))
+
+          (== (count buf) lim-1)
+          (do
+            (async/>! out (conj buf v))
+            (recur [] (async/timeout max-time)))
+
+          :else
+          (recur (conj buf v) t))))))
+
+(defn cleanup-messages [in out]
+  (async/go-loop []
+    (->> in
+         async/<!
+         (group-by (fn [[_ event-type _]]
+                     event-type))
+         (map (fn [[_ messages]]
+                (->> messages
+                     (sort-by (fn [[message-counter _ _]]
+                                message-counter))
+                     last)))
+         (async/>! out))
+    (recur)))
+
+(defn handle-messages [in]
+  (async/go-loop []
+    (let [messages (async/<! in)]
+      (run! handle messages))
+    (recur)))
+
 (defn start! []
-  (go (let [response (<! (http/get "/options"))]
-        (when (-> response :status (= 200))
-          (-> response
-              :body
-              handle-options)))
-      (let [response (<! (http/get "/ids"))]
-        (when (-> response :status (= 200))
-          (-> response
-              :body
-              handle-content-ids)))
-      (loop []
-        (let [{:keys [ws-channel]}    (<! (ws-ch (ws-url)))
-              {:keys [message error]} (<! ws-channel)]
-          (if error
-            (js/console.log "Uh oh:" error)
-            (do (js/console.log "Recieved:" (pr-str message))
-                (handle message))))
-        (recur))))
+  (go
+    (let [response (<! (http/get "/options"))]
+      (when (-> response :status (= 200))
+        (-> response
+            :body
+            handle-options)))
+    (let [response (<! (http/get "/ids"))]
+      (when (-> response :status (= 200))
+        (-> response
+            :body
+            handle-content-ids)))
+    (let [{:keys [ws-channel]}   (<! (ws-ch
+                                      (ws-url)
+                                      {:read-ch (async/chan
+                                                 (async/sliding-buffer 100))}))
+          messages-channel (async/chan 100)
+          batched-messages-channel (async/chan 1)
+          clean-messages-channel   (async/chan 1)]
+      (pass-valid-messages ws-channel messages-channel)
+      (batch-messages messages-channel batched-messages-channel 200 100)
+      (cleanup-messages batched-messages-channel clean-messages-channel)
+      (handle-messages clean-messages-channel))))

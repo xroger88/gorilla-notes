@@ -15,12 +15,16 @@
 (def channel-hub
   (atom {}))
 
+(defonce message-counter (atom 0))
+
 (defn broadcast! [event-type data]
   (doseq [channel (keys @channel-hub)]
     (send! channel
            {:status  200
             :headers {"Content-Type" "application/json; charset=utf-8"}
-            :body    (cheshire/generate-string [event-type data])})))
+            :body    (cheshire/generate-string [(swap! message-counter inc)
+                                                event-type
+                                                data])})))
 
 (defn broadcast-content-ids! []
   (broadcast! :gn/content-ids (pr-str (state/content-ids))))
@@ -84,7 +88,7 @@
             (> 1000))
     (broadcast-content-ids!)))
 
-(defonce periodically-refresh
+#_(defonce periodically-refresh
   (async/go-loop []
     (async/<! (async/timeout 1000))
     (refresh)
