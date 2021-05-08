@@ -12,7 +12,7 @@
                               (pr-str state-str)))
       (string/replace
        "<script src=\"js/compiled/main.js\"></script>"
-       "<script src=\"https://cdn.statically.io/gh/scicloj/gorilla-notes@master/dist/0.5.10/main.js\"></script>")))
+       "<script src=\"https://cdn.statically.io/gh/scicloj/gorilla-notes@master/dist/0.5.12/main.js\"></script>")))
 
 (defn render-current-state! [output-path]
   (-> @state/*state
