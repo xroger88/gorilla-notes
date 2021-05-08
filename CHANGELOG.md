@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
-## [0.5.12-SNAPSHOT] - 2020-05-08
+## [0.5.12] - 2020-05-08
 - updated deps (shadow-cljs, gorilla-ui)
 - a more standard setup of index.html and static rendering
 - fixed communication through websockets: debouncing
