@@ -5,8 +5,6 @@
             ["react-katex" :refer [InlineMath BlockMath]]
             ["react" :as React]))
 
-(println [:DBG InlineMath])
-
 (def renderers
   #js {:inlineMath (fn [v]
                      (React/createElement InlineMath #js {:math (.-value v)}))
