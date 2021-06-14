@@ -12,8 +12,8 @@
   ring/ring-devel {:mvn/version "1.7.1"}
   cheshire {:mvn/version "5.8.1"}
   reagent {:mvn/version "0.10.0"}
-  org.pinkgorilla/gorilla-ui {:mvn/version "0.3.18"}
-  org.pinkgorilla/webly {:mvn/version "0.2.24"}
+  org.pinkgorilla/gorilla-ui {:mvn/version "0.3.24"}
+  org.pinkgorilla/webly {:mvn/version "0.3.8"}
   cljs-http {:mvn/version "0.1.46"}
   zprint {:mvn/version "0.5.4"}
   juji/chord {:mvn/version "0.8.2"}

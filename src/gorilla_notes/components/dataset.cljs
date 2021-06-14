@@ -1,6 +1,5 @@
 (ns gorilla-notes.components.dataset
-  (:require ["ag-grid-react" :as rs :refer [AgGridReact]]
-            [pinkgorilla.ui.config :refer [link-css]]))
+  (:require ["ag-grid-react" :as rs :refer [AgGridReact]]))
 
 ;; Inspired by gorilla-ui aggrid component
 

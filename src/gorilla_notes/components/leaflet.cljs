@@ -1,8 +1,7 @@
 (ns gorilla-notes.components.leaflet
   (:require
    ["react-leaflet" :refer [Map TileLayer Popup Marker CircleMarker Circle Rectangle Polygon Polyline GeoJSON]]
-   ["leaflet" :refer [Icon]]
-   [pinkgorilla.ui.config :refer [link-css res-href]]
+   ["leaflet"]
    [pinkgorilla.dsl.leaflet]))
 
 
