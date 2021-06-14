@@ -49,7 +49,7 @@
 (defroutes routes
   (GET "/" req
        (response/content-type
-        (response/resource-response "public/index.html")
+        (response/resource-response "public/gorilla-notes/index.html")
         "text/html"))
   (GET "/status" req (str "Running."))
   (GET "/ws" [] #'ws-handler)

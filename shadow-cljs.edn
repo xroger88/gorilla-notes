@@ -1,14 +1,15 @@
 {:lein     true
- :dev-http {8080 ["resources/public/"
-                  "target"
-                  "classpath:resources"
-                  "classpath:resources/public"
-                  "node_modules"
-                  "node_modules/leaflet/dist"
-                  "node_modules/mathjax/es5"
-                  "node_modules/ag-grid-community"]}
- :builds   {:app {:output-dir    "resources/public/js/compiled"
-                  :asset-path    "/js/compiled"
+ :dev-http {8080 [;; "resources/public/gorilla-notes/"
+                  ;; "target"
+                  ;; "classpath:resources"
+                  ;; "classpath:resources/public"
+                  ;; "node_modules"
+                  ;; "node_modules/leaflet/dist"
+                  ;; "node_modules/mathjax/es5"
+                  ;; "node_modules/ag-grid-community"
+                  ]}
+ :builds   {:app {:output-dir    "resources/public/gorilla-notes/js/compiled"
+                  :asset-path    "/gorilla-notes/js/compiled"
                   :target        :browser
                   :modules       {:main {:entries [gorilla-notes.main]
                                          :init-fn gorilla-notes.main/main!}}

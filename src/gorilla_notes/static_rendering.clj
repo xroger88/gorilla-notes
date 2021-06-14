@@ -4,7 +4,7 @@
             [gorilla-notes.state :as state]))
 
 (defn static-html [state-str]
-  (-> "public/index.html"
+  (-> "public/gorilla-notes/index.html"
       io/resource
       slurp
       (string/replace "<!-- state-placeholder -->"
