@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file. This change
 - paths reorganizations (making index.html, etc. have a unique location to avoid conflicts with other tools)
 - deps version update
 - code cleanup
+- new setup to consume the main.js file on static rendering
 
 ## [0.5.12] - 2020-05-08
 - updated deps (shadow-cljs, gorilla-ui)

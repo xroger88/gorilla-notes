@@ -148,8 +148,8 @@
     [:p/dataset {:columnDefs columnDefs
                   :rowData    rowData}]])
 
-  (render-current-state! "resources/public/tmp.html")
-  (browse/browse-url (str (base-http-url) "/tmp.html"))
+  (render-current-state! "/tmp/gn/gn.html")
+  (clojure.java.shell/sh "firefox" "file:///tmp/gn/gn.html")
 
   (require '[gorilla-notes.components.leaflet.providers :as leaflet-providers])
 
