@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
-## [0.5.13-SNAPSHOT]
+## [0.5.13] - 2021-06-14
 - paths reorganizations (making index.html, etc. have a unique location to avoid conflicts with other tools)
 - deps version update
 - code cleanup
