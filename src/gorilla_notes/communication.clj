@@ -10,7 +10,8 @@
             #_[chord.http-kit :refer [wrap-websocket-handler]]
             [cheshire.core :as cheshire]
             [clojure.core.async :as async :refer [<! go go-loop timeout chan]]
-            [gorilla-notes.state :as state]))
+            [gorilla-notes.state :as state]
+            [gorilla-notes.page :as page]))
 
 (def channel-hub
   (atom {}))
@@ -48,9 +49,7 @@
 
 (defroutes routes
   (GET "/" req
-       (response/content-type
-        (response/resource-response "public/gorilla-notes/index.html")
-        "text/html"))
+       (page/page))
   (GET "/status" req (str "Running."))
   (GET "/ws" [] #'ws-handler)
   (GET "/ids" req (-> @state/*state

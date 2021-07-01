@@ -6,4 +6,8 @@
    :notes-in-cards?     false
    :initially-collapse? false
    :auto-scroll?        false
-   :port                1903}) 
+   :port                1903
+   :main-div-class :container
+   :page {:bootswatch-style "sandstone"
+          :highlight-js-theme "solarized-light"}}) 
+

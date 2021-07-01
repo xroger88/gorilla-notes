@@ -1,8 +1,8 @@
 (ns gorilla-notes.static-rendering
   (:require [clojure.java.io :as io]
             [clojure.string :as string]
-            [gorilla-notes.state :as state]))
-
+            [gorilla-notes.state :as state]
+            [selmer.parser]))
 
 ;; https://stackoverflow.com/a/19297746
 (defn copy [uri file]
@@ -16,9 +16,11 @@
   (-> "public/gorilla-notes/index.html"
       io/resource
       slurp
-      (string/replace "<!-- state-placeholder -->"
-                      (format "<script id=\"state\" type=\"text\">%s</script>"
-                              (pr-str state-str)))))
+      (selmer.parser/render
+       (merge
+        (state/page-options)
+        {:state-override (format "<script id=\"state\" type=\"text\">%s</script>"
+                                 (pr-str state-str))}))))
 
 (defn render-current-state! [output-path]
   (io/make-parents output-path)

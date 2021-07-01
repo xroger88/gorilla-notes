@@ -4,7 +4,9 @@
             [gorilla-notes.state :as state]
             [gorilla-notes.intro :as intro]
             [clojure.java.browse :as browse]
-            [gorilla-notes.static-rendering :as static-rendering]))
+            [gorilla-notes.static-rendering :as static-rendering]
+            [clojure.java.io :as io]
+            [clojure.string :as string]))
 
 (def broadcast-content-ids! communication/broadcast-content-ids!)
 
@@ -69,6 +71,8 @@
 (defn render-current-state! [output-path]
   (static-rendering/render-current-state! output-path))
 
+
+
 (comment
 
   (def stop-server (start-server!))
@@ -80,6 +84,40 @@
   (browse-http-url)
 
   (reset-notes!)
+
+  (assoc-note!
+   0
+   (let [stylesheet    [{:selector "node"
+                         :style    {:width  20
+                                    :height 10
+                                    :shape  "rectangle"}}
+                        {:selector "edge"
+                         :style    {:width 5}}]
+         layout-random {:name "random"}
+         el            [{:data {:id "a" :label "apple"} :position {:x 0 :y 0}}
+                        {:data {:id "b" :label "banana"} :position {:x 100 :y 0}}
+                        {:data {:id "c" :label "cherry"} :position {:x 200 :y 0}}
+                        {:data {:id "ab" :source "a" :target "b"}}]]
+     [:p/cytoscape   {:stylesheet stylesheet
+                      :elements   el
+                      :layout     layout-random
+                      :style      {:border "9px solid #39b"
+                                   :width  "100px"
+                                   :height "100px"}}]))
+
+  (assoc-note!
+   0
+   [:p/frisk
+    {:a (range 9)
+     :b {:c {:d [3 1 {:e [1 3]}]}}}])
+
+  (assoc-note!
+   0
+   [:p/frisk
+    {:a (range 9)
+     :b {:c {:d [3 1 {:e [1 3]}]}}}])
+
+  (add-note! [:div [:p (rand-int 999)]])
 
   (assoc-note! 0 [:div [:p (rand-int 999)]])
 
@@ -282,6 +320,18 @@
 
   (broadcast-content-ids!)
 
+
+  (assoc-note! 0 [:p/code (pr-str '(map inc (range 9)))])
+
+  (require 'gorilla-notes.defaults)
+  (merge-new-options! {:page (:page gorilla-notes.defaults/options)})
+  (merge-new-options! {:page {:bootswatch-style "darkly"
+                              :highlight-js-theme "rainbow"}})
+
+  (merge-new-options! {:main-div-class :container})
+  (merge-new-options! {:main-div-class :container-fluid})
+  (merge-new-options! {:main-div-class nil})
+
   (merge-new-options! {:reverse-notes? false
                        :header?        false})
   (toggle-option! :reverse-notes?)
@@ -301,5 +351,4 @@
                     [:big "Goodbye"]]})
 
   (render-current-state! "/tmp/a.html"))
-
 

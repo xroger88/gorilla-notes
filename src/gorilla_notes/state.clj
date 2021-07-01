@@ -69,6 +69,9 @@
 (defn options []
   (:options @*state))
 
+(defn page-options []
+  (:page (options)))
+
 (defn watch-inputs! [handler]
   (swap! *state update :input-handlers #(conj % handler)))
 
