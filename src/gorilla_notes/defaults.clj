@@ -7,7 +7,7 @@
    :initially-collapse? false
    :auto-scroll?        false
    :port                1903
-   :main-div-class :container
+   :main-div-class :container-fluid
    :page {:bootswatch-style "sandstone"
           :highlight-js-theme "solarized-light"}}) 
 
