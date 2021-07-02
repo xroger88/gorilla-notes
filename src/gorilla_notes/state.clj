@@ -51,11 +51,21 @@
          :ids []
          :id->content {}))
 
+;; https://dnaeon.github.io/recursively-merging-maps-in-clojure/
+(defn deep-merge
+  "Recursively merges maps."
+  [& maps]
+  (letfn [(m [& xs]
+            (if (some #(and (map? %) (not (record? %))) xs)
+              (apply merge-with m xs)
+              (last xs)))]
+    (reduce m maps)))
+
 (defn merge-new-options! [new-options]
   (swap! *state
          update
          :options
-         #(merge % new-options)))
+         #(deep-merge % new-options)))
 
 (defn toggle-option! [k]
   (swap! *state

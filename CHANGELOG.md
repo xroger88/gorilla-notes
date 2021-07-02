@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file. This change log follows the conventions of [keepachangelog.com](http://keepachangelog.com/).
 
+## [0.5.15] - 2021-07-02
+- merging options more carefully
+
+
 ## [0.5.14] - 2021-07-01
 - configurable aesthetic options: main-div-class, highlight-js-theme, bootswatch-style
 
