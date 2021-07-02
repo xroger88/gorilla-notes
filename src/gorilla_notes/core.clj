@@ -89,7 +89,21 @@
   (stop-server)
 
   (browse-http-url)
+
   (reset-notes!)
+
+  (do
+    (reset-notes!)
+    (add-note!
+     [:div
+      [:a {:name "abcd"}]
+      [:p "abcd"]])
+    (dotimes [i 20]
+      (add-note!
+       [:p (rand-int 10)]))
+    (add-note!
+     [:a {:href "#abcd"}
+      "to abcd"]))
 
   (assoc-note!
    0
