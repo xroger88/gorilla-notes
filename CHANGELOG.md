@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file. This change
 
 ## [0.5.15] - 2021-07-02
 - merging options more carefully
-
+- support for page refresh
 
 ## [0.5.14] - 2021-07-01
 - configurable aesthetic options: main-div-class, highlight-js-theme, bootswatch-style

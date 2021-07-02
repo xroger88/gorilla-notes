@@ -29,11 +29,16 @@
 (defn handle-options [options-str]
   (state/reset-options! (read-string options-str)))
 
+(defn refresh-page []
+  (.reload js/location))
+
 (defn handle [[_ event-type data]]
+  (println event-type)
   (when event-type
     (case event-type
-    "gn/content-ids" (handle-content-ids data)
-    "gn/options" (handle-options data))))
+      "gn/content-ids"  (handle-content-ids data)
+      "gn/options"      (handle-options data)
+      "gn/refresh-page" (refresh-page))))
 
 (defn post-input [symbol value]
   (http/post "/input-update"

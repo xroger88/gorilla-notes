@@ -33,6 +33,9 @@
 (defn broadcast-options! []
   (broadcast! :gn/options (pr-str (state/options))))
 
+(defn broadcast-refresh-page! []
+  (broadcast! :gn/refresh-page nil))
+
 (comment
   (broadcast! :gn/dummy [1 2 3]))
 
@@ -81,11 +84,11 @@
                       :access-control-allow-methods [:get :put :post :delete]
                       :access-control-allow-credentials ["true"])))
 
-(defn refresh []
-  (when (-> (System/currentTimeMillis)
-            (- @last-ws-event-time)
-            (> 1000))
-    (broadcast-content-ids!)))
+;; (defn refresh []
+;;   (when (-> (System/currentTimeMillis)
+;;             (- @last-ws-event-time)
+;;             (> 1000))
+;;     (broadcast-content-ids!)))
 
 #_(defonce periodically-refresh
   (async/go-loop []
