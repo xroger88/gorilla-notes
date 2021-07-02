@@ -6,11 +6,15 @@
             [clojure.java.browse :as browse]
             [gorilla-notes.static-rendering :as static-rendering]
             [clojure.java.io :as io]
-            [clojure.string :as string]))
+            [clojure.string :as string]
+            [gorilla-notes.styles.bootswatch :as bootswatch]
+            [gorilla-notes.styles.highlight-js :as highlight-js]))
 
 (def broadcast-content-ids! communication/broadcast-content-ids!)
 
 (def broadcast-options! communication/broadcast-options!)
+
+(def broadcast-refresh-page! communication/broadcast-refresh-page!)
 
 (defn reset-notes! [& {:keys [broadcast?] :or {broadcast? true}}]
   (state/reset-notes!)
@@ -39,7 +43,10 @@
                           & {:keys [broadcast?] :or {broadcast? true}}]
   (state/merge-new-options! new-options)
   (when broadcast?
-    (communication/broadcast-options!)))
+    (communication/broadcast-options!)
+    (when (:page new-options)
+      ;; page options require page refresh to take place
+      (broadcast-refresh-page!))))
 
 (defn toggle-option! [k
                       & {:keys [broadcast?] :or {broadcast? true}}]
@@ -82,8 +89,22 @@
   (stop-server)
 
   (browse-http-url)
-
   (reset-notes!)
+
+  (assoc-note!
+   0
+   [:p/code
+    (pr-str
+     {:a (range 9)
+      :b {:c {:d [3 1 {:e [1 3]}]}}})])
+
+  (broadcast-refresh-page!)
+
+  (assoc-note!
+   0
+   [:p/frisk
+    {:a (range 9)
+     :b {:c {:d [3 1 {:e [1 3]}]}}}])
 
   (assoc-note!
    0
@@ -105,11 +126,6 @@
                                    :width  "100px"
                                    :height "100px"}}]))
 
-  (assoc-note!
-   0
-   [:p/frisk
-    {:a (range 9)
-     :b {:c {:d [3 1 {:e [1 3]}]}}}])
 
   (assoc-note!
    0
@@ -323,10 +339,15 @@
 
   (assoc-note! 0 [:p/code (pr-str '(map inc (range 9)))])
 
-  (require 'gorilla-notes.defaults)
+  (require 'gorilla-notes.defaults
+           '[gorilla-notes.styles.bootswatch :as bootswatch]
+           '[gorilla-notes.styles.highlight-js :as highlight-js])
   (merge-new-options! {:page (:page gorilla-notes.defaults/options)})
-  (merge-new-options! {:page {:bootswatch-style "darkly"
-                              :highlight-js-theme "rainbow"}})
+  (merge-new-options! {:page {:bootswatch-style bootswatch/darkly
+                              :highlight-js-theme highlight-js/rainbow}})
+  (merge-new-options! {:page {:bootswatch-style   bootswatch/slate}})
+  (broadcast-refresh-page!)
+
 
   (merge-new-options! {:main-div-class :container})
   (merge-new-options! {:main-div-class :container-fluid})
